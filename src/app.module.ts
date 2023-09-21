@@ -7,6 +7,7 @@ import databaseConfig from './config/database.config';
 import cacheConfig from './config/cache.config';
 import utilConfig from './config/util.config';
 import { LoggerModule } from './shared/logger/logger.module';
+import { CacheModule } from './shared/cache/cache.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LoggerModule } from './shared/logger/logger.module';
       load: [appConfig, databaseConfig, cacheConfig, utilConfig],
     }),
     LoggerModule,
+    CacheModule,
   ],
   controllers: [AppController],
   providers: [AppService],
