@@ -5,14 +5,10 @@
 ```
 
 # dev
-yarn install
+docker build -t any-tag-you-want -f Dockerfile.dev . 
 
-yarn start:dev
+docker run -p 3000:3000 -v $(pwd):/app my-nest-app-dev 
 
 # prod
-yarn install
-
-yarn build
-
-yarn start:prod
+// need to set 
 ```

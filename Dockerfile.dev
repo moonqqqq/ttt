@@ -1,0 +1,12 @@
+FROM node:18.17
+
+WORKDIR /app
+
+COPY ./dist ./dist
+COPY ./package*.json ./
+
+RUN yarn install
+
+EXPOSE 3000
+
+CMD ["yarn", "start:dev"]
