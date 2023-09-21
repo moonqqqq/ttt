@@ -6,6 +6,7 @@ import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import cacheConfig from './config/cache.config';
 import utilConfig from './config/util.config';
+import { LoggerModule } from './shared/logger/logger.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import utilConfig from './config/util.config';
       // ignoreEnvFile: process.env.NODE_ENV === 'prod', // Store produnction env on cicd
       load: [appConfig, databaseConfig, cacheConfig, utilConfig],
     }),
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
