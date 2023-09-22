@@ -10,8 +10,6 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: .
-    volumes:
-      - .:/app
     env_file:
     - .env.dev
     command: yarn start:dev

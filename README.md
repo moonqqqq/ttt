@@ -29,13 +29,21 @@ docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
 ```
 
 ## Docker Compose
+### DEV/LOCAL
 ```
-docker compose up
+// need to install because docker use volume
+1. run "yarn install"
+
+2. set ".env.dev" file
+
+3. run "docker compose -f docker-compose-dev.yml up"
 ```
 
-Prod
+### PROD
 ```
-// TODO
+1. set ".env.prod" file
+
+2. run "docker compose -f docker-compose-prod.yml up"
 ```
 
 # TODO
