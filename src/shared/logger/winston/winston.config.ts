@@ -24,7 +24,7 @@ export const WinstomSettingModule = WinstonModule.forRoot({
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.timestamp(),
-        nestWinstonModuleUtilities.format.nestLike('projectName', {
+        nestWinstonModuleUtilities.format.nestLike(`${process.env.APP_NAME}`, {
           prettyPrint: true,
         }),
       ),

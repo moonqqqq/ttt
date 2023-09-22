@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -8,6 +8,7 @@ import cacheConfig from './config/cache.config';
 import utilConfig from './config/util.config';
 import { LoggerModule } from './shared/logger/logger.module';
 import { CacheModule } from './shared/cache/cache.module';
+import { reqResLogMiddleware } from './infra/middleware/req-res-log.middleware';
 
 @Module({
   imports: [
@@ -23,4 +24,8 @@ import { CacheModule } from './shared/cache/cache.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(reqResLogMiddleware).forRoutes('*');
+  }
+}
