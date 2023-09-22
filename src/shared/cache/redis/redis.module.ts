@@ -18,8 +18,8 @@ import { ICacheService } from '../interfaces/cache.interface';
       ): Promise<RedisModuleOptions> => {
         return {
           config: {
-            host: configService.get('redis.host'),
-            port: configService.get('redis.port'),
+            host: configService.get('cache.redisHost'),
+            port: configService.get('cache.redisPort'),
           },
         };
       },

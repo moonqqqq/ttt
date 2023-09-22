@@ -20,11 +20,17 @@ Business logic is heare
 validation, sanitization, type change, etc..
 
 # Running server
+## Docker
 Dev
 ```
 docker build -t any-tag-you-want -f Dockerfile.dev . 
 
-docker run -p 3000:3000 -v $(pwd):/app my-nest-app-dev 
+docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
+```
+
+## Docker Compose
+```
+docker compose up
 ```
 
 Prod
