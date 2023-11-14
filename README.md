@@ -1,6 +1,6 @@
 # Rules
-1. we use yarn
-2. we use prisma
+1. we use "yarn"
+2. we use "prisma"
 
 # Folder Structure
 Each module will have below files
@@ -31,19 +31,19 @@ docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
 ## Docker Compose
 ### DEV/LOCAL
 ```
-// need to install because docker use volume
-1. run "yarn install"
+// Need to install because docker use volume
+1. Run "yarn install"
 
-2. set ".env.dev" file
+2. Set ".env.dev" file
 
-3. run "docker compose -f docker-compose-dev.yml up"
+3. Run "docker compose -f docker-compose-dev.yml up"
 ```
 
 ### PROD
 ```
-1. set ".env.prod" file
+1. Set ".env.prod" file
 
-2. run "docker compose -f docker-compose-prod.yml up"
+2. Run "docker compose -f docker-compose-prod.yml up"
 ```
 
 # TODO
