@@ -9,17 +9,18 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { UploadFileResDTO } from './dtos/upload-file-res.dto';
-import { API_VERSION } from '../shared/constants/api-versions';
+import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { FileUploadDTO } from './dtos/upload-file-req.dto';
 import { ApiCreatedDataWrapResponse } from '../shared/decorators/api-created-res.decorator';
+import { BODY_INPUT_TYPE } from 'src/shared/constants/swagger';
 
-@ApiTags('upload')
-@Controller(`${API_VERSION.ONE}/upload`)
+@ApiTags(`${API_ENDPOINT.UPLOAD}`)
+@Controller(`${API_VERSION.ONE}/${API_ENDPOINT.UPLOAD}`)
 export class UploadController {
   constructor(private readonly uploadService: IUploadService) {}
 
   @Post()
-  @ApiConsumes('multipart/form-data')
+  @ApiConsumes(BODY_INPUT_TYPE.MULTIPART_FORMDATA)
   @ApiBody({
     description: 'A image file',
     type: FileUploadDTO,
