@@ -12,7 +12,7 @@ import { UploadFileResDTO } from './dtos/upload-file-res.dto';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { FileUploadDTO } from './dtos/upload-file-req.dto';
 import { ApiCreatedDataWrapResponse } from '../shared/decorators/api-created-res.decorator';
-import { BODY_INPUT_TYPE } from 'src/shared/constants/swagger';
+import { BODY_INPUT_TYPE } from '../shared/constants/swagger';
 
 @ApiTags(`${API_ENDPOINT.UPLOAD}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.UPLOAD}`)

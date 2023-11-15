@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { ILoggerService } from 'src/shared/logger/interface/logger-service.interface';
+import { ILoggerService } from '../../shared/logger/interface/logger-service.interface';
 
 @Injectable()
 export class reqResLogMiddleware implements NestMiddleware {

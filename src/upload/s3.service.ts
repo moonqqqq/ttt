@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IUploadService } from './interfaces/upload-service.interface';
-import { ILoggerService } from 'src/shared/logger/interface/logger-service.interface';
+import { ILoggerService } from '../shared/logger/interface/logger-service.interface';
 import * as AWS from 'aws-sdk';
 import { ConfigService } from '@nestjs/config';
 import { FILE_ENUM, FILE_ENUM_TYPE } from './file.constants';

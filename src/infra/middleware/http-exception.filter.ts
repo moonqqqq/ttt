@@ -6,8 +6,8 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ERROR_CODE } from 'src/shared/constants/error-code';
-import { ILoggerService } from 'src/shared/logger/interface/logger-service.interface';
+import { ERROR_CODE } from '../../shared/constants/error-code';
+import { ILoggerService } from '../../shared/logger/interface/logger-service.interface';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
