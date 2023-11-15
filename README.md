@@ -1,3 +1,7 @@
+This base code have set uped prequently used library modules like cache, s3 uploader etc.
+Check the .env.example file to run the project.
+If you dont want, or doesnot need for your project, just makes unnecessary modules commented on app.module.ts 
+
 # Rules
 1. we use "yarn"
 2. we use "prisma"
