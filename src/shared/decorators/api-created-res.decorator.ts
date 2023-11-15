@@ -2,11 +2,11 @@ import { Type, applyDecorators } from '@nestjs/common';
 import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
 import { DataResDTO } from '../dtos/data-res.dto';
 
-export const ApiCreatedDataWrapResponse = <DataDto extends Type<unknown>>(
-  dataDto: DataDto,
+export const ApiCreatedDataWrapResponse = <DataDTO extends Type<unknown>>(
+  dataDTO: DataDTO,
 ) =>
   applyDecorators(
-    ApiExtraModels(DataResDTO, dataDto),
+    ApiExtraModels(DataResDTO, dataDTO),
     ApiOkResponse({
       schema: {
         allOf: [
@@ -14,7 +14,7 @@ export const ApiCreatedDataWrapResponse = <DataDto extends Type<unknown>>(
           {
             properties: {
               data: {
-                $ref: getSchemaPath(dataDto),
+                $ref: getSchemaPath(dataDTO),
               },
             },
           },

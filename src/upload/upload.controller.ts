@@ -10,7 +10,7 @@ import { Express } from 'express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { UploadFileResDTO } from './dtos/upload-file-res.dto';
 import { API_VERSION } from '../shared/constants/api-versions';
-import { FileUploadDto } from './dtos/upload-file-req.dto';
+import { FileUploadDTO } from './dtos/upload-file-req.dto';
 import { ApiCreatedDataWrapResponse } from '../shared/decorators/api-created-res.decorator';
 
 @ApiTags('upload')
@@ -22,7 +22,7 @@ export class UploadController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'A image file',
-    type: FileUploadDto,
+    type: FileUploadDTO,
   })
   @ApiCreatedDataWrapResponse(UploadFileResDTO)
   @UseInterceptors(FileInterceptor('file'))
