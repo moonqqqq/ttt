@@ -10,6 +10,7 @@ import { LoggerModule } from './shared/logger/logger.module';
 import { CacheModule } from './shared/cache/cache.module';
 import { reqResLogMiddleware } from './infra/middleware/req-res-log.middleware';
 import { UploadModule } from './upload/upload.module';
+import { RoomModule } from './room/room.module';
 import s3Config from './config/s3.config';
 
 @Module({
@@ -23,6 +24,7 @@ import s3Config from './config/s3.config';
     LoggerModule,
     CacheModule,
     UploadModule,
+    RoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],
