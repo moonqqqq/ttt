@@ -7,11 +7,12 @@ import databaseConfig from './config/database.config';
 import cacheConfig from './config/cache.config';
 import utilConfig from './config/util.config';
 import { LoggerModule } from './shared/logger/logger.module';
-import { CacheModule } from './shared/cache/cache.module';
+// import { CacheModule } from './shared/cache/cache.module';
 import { reqResLogMiddleware } from './infra/middleware/req-res-log.middleware';
 import { UploadModule } from './upload/upload.module';
 import { RoomModule } from './room/room.module';
 import s3Config from './config/s3.config';
+import { PrismaModule } from './shared/prisma/prisma.module';
 
 @Module({
   imports: [
@@ -22,9 +23,10 @@ import s3Config from './config/s3.config';
       load: [appConfig, databaseConfig, cacheConfig, utilConfig, s3Config],
     }),
     LoggerModule,
-    CacheModule,
+    // CacheModule,
     UploadModule,
     RoomModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
