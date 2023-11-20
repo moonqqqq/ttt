@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MEDIA, MEDIA_TYPES } from '../interfaces/media-enum.interface';
 import { IsEnum, IsOptional } from 'class-validator';
+import { BaseDataDTO } from '../../shared/dtos/base-timestamp.dto';
 
 export class GetMediaReqDTO {
   @ApiProperty({ enum: MEDIA, example: MEDIA.NEWS, required: true })
@@ -9,7 +10,7 @@ export class GetMediaReqDTO {
   type?: MEDIA_TYPES;
 }
 
-export class GetMediaResDTO {
+export class GetMediaResDTO extends BaseDataDTO {
   @ApiProperty({ type: 'string' })
   title: string;
 

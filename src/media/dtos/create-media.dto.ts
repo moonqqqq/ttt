@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MEDIA, MEDIA_TYPES } from '../interfaces/media-enum.interface';
 import { IsDateString, IsEnum, IsString } from 'class-validator';
+import { BaseDataDTO } from '../../shared/dtos/base-timestamp.dto';
 
 export class CreateMediaReqDTO {
   @ApiProperty({
@@ -36,7 +37,7 @@ export class CreateMediaReqDTO {
   uploadedAt: Date;
 }
 
-export class CreateMediaResDTO {
+export class CreateMediaResDTO extends BaseDataDTO {
   @ApiProperty({ type: 'string', example: '스웨 35억 투자 유치 !' })
   @IsString()
   title: string;
