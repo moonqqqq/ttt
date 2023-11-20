@@ -7,4 +7,5 @@ export type API_VERSION_TYPES = (typeof API_VERSION)[keyof typeof API_VERSION];
 export const API_ENDPOINT = {
   UPLOAD: 'upload',
   ROOM: 'room',
+  MEDIA: 'media',
 } as const;

@@ -1,6 +1,8 @@
+import { IPagination } from '../interfaces/pagination.interface';
 import {
   IResWrapList,
   IResWrapSingle,
+  ResWrapPagination,
 } from '../interfaces/res-wrapper.interface';
 
 export default class ResWrapper {
@@ -16,15 +18,15 @@ export default class ResWrapper {
     };
   }
 
-  // static listWithPagination<T>(
-  //   pagination: IPagination,
-  //   list: T[],
-  // ): ResWrapPagination<T> {
-  //   return {
-  //     pagination,
-  //     data: list,
-  //   };
-  // }
+  static listWithPagination<T>(
+    pagination: IPagination,
+    list: T[],
+  ): ResWrapPagination<T> {
+    return {
+      pagination,
+      data: list,
+    };
+  }
 
   // static listWithInfiniteScroll<T>(
   //   infiniteScroll: IInfiniteScroll,

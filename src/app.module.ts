@@ -13,6 +13,7 @@ import { UploadModule } from './upload/upload.module';
 import { RoomModule } from './room/room.module';
 import s3Config from './config/s3.config';
 import { PrismaModule } from './shared/prisma/prisma.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { PrismaModule } from './shared/prisma/prisma.module';
     UploadModule,
     RoomModule,
     PrismaModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
