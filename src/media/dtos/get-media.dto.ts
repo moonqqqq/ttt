@@ -10,6 +10,9 @@ export class GetMediaReqDTO {
 }
 
 export class GetMediaResDTO {
+  @ApiProperty({ type: 'string' })
+  title: string;
+
   @ApiProperty({ enum: MEDIA, example: MEDIA.NEWS })
   @IsEnum(MEDIA)
   type: MEDIA_TYPES;

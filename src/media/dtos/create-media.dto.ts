@@ -3,6 +3,14 @@ import { MEDIA, MEDIA_TYPES } from '../interfaces/media-enum.interface';
 import { IsDateString, IsEnum, IsString } from 'class-validator';
 
 export class CreateMediaReqDTO {
+  @ApiProperty({
+    type: 'string',
+    required: true,
+    example: '스웨 35억 투자 유치 !',
+  })
+  @IsString()
+  title: string;
+
   @ApiProperty({ enum: MEDIA, example: MEDIA.NEWS, required: true })
   @IsEnum(MEDIA)
   type: MEDIA_TYPES;
@@ -29,6 +37,10 @@ export class CreateMediaReqDTO {
 }
 
 export class CreateMediaResDTO {
+  @ApiProperty({ type: 'string', example: '스웨 35억 투자 유치 !' })
+  @IsString()
+  title: string;
+
   @ApiProperty({ enum: MEDIA, example: MEDIA.NEWS, required: true })
   @IsEnum(MEDIA)
   type: MEDIA_TYPES;
