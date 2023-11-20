@@ -14,6 +14,7 @@ import { RoomModule } from './room/room.module';
 import s3Config from './config/s3.config';
 import { PrismaModule } from './shared/prisma/prisma.module';
 import { MediaModule } from './media/media.module';
+import { PortfolioModule } from './portfolio/portfolio.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { MediaModule } from './media/media.module';
     RoomModule,
     PrismaModule,
     MediaModule,
+    PortfolioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

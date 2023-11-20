@@ -31,7 +31,7 @@ model Portfolio {
   id              String @id @default(uuid())
   location        String
   model           String
-  size            String
+  size            Int
   images          PortfolioImage[]
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)

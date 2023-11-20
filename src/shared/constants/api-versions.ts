@@ -8,4 +8,5 @@ export const API_ENDPOINT = {
   UPLOAD: 'upload',
   ROOM: 'room',
   MEDIA: 'media',
+  PORTFOLIO: 'portfolio',
 } as const;
