@@ -4,7 +4,7 @@ import { IsEnum, IsOptional } from 'class-validator';
 import { BaseDataDTO } from '../../shared/dtos/base-timestamp.dto';
 
 export class GetMediaReqDTO {
-  @ApiProperty({ enum: MEDIA, example: MEDIA.NEWS, required: true })
+  @ApiProperty({ enum: MEDIA, example: MEDIA.NEWS })
   @IsEnum(MEDIA)
   @IsOptional()
   type?: MEDIA_TYPES;
