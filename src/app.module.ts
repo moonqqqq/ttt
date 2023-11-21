@@ -15,6 +15,7 @@ import s3Config from './config/s3.config';
 import { PrismaModule } from './shared/prisma/prisma.module';
 import { MediaModule } from './media/media.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
+import { FaqModule } from './faq/faq.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { PortfolioModule } from './portfolio/portfolio.module';
     PrismaModule,
     MediaModule,
     PortfolioModule,
+    FaqModule,
   ],
   controllers: [AppController],
   providers: [AppService],

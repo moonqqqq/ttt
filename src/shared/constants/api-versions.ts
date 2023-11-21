@@ -9,4 +9,5 @@ export const API_ENDPOINT = {
   ROOM: 'room',
   MEDIA: 'media',
   PORTFOLIO: 'portfolio',
+  FAQ: 'faq',
 } as const;
