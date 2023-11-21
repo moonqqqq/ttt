@@ -43,4 +43,13 @@ model PortfolioImage {
   portfolioId     String
   portfolio       Portfolio       @relation(fields: [portfolioId], references: [id])
   createdAt       DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
+}
+
+model Faq {
+  id              String @id @default(uuid())
+  question        String
+  answer          String
+  createdAt       DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
