@@ -5,7 +5,7 @@ import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './infra/middleware/http-exception.filter';
 import { ILoggerService } from './shared/logger/interface/logger-service.interface';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationExceptionFilter } from './infra/exceptions/bad-request.exception';
+// import { ValidationExceptionFilter } from './infra/exceptions/bad-request.exception';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -39,7 +39,7 @@ async function bootstrap() {
     }),
   );
 
-  app.useGlobalFilters(new ValidationExceptionFilter());
+  // app.useGlobalFilters(new ValidationExceptionFilter());
 
   await app.listen(configService.get('app.port'));
 }

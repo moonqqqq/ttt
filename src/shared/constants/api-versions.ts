@@ -11,4 +11,5 @@ export const API_ENDPOINT = {
   PORTFOLIO: 'portfolio',
   FAQ: 'faq',
   MODEL: 'model',
+  USER: 'user',
 } as const;

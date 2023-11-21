@@ -17,6 +17,7 @@ import { MediaModule } from './media/media.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
 import { FaqModule } from './faq/faq.module';
 import { ModelModule } from './model/model.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ModelModule } from './model/model.module';
     PortfolioModule,
     FaqModule,
     ModelModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
