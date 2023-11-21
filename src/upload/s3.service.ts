@@ -22,12 +22,12 @@ export class S3Service implements IUploadService {
   }
 
   async uploadImage(file: Express.Multer.File) {
-    const formattedFilename = this._getFormattedFileName(file.originalname);
+    const formattedFilename = this.#getFormattedFileName(file.originalname);
 
     try {
       await this.s3
         .upload({
-          Key: this._getFileKey(FILE_ENUM.IMAGE, formattedFilename),
+          Key: this.#getFileKey(FILE_ENUM.IMAGE, formattedFilename),
           Body: file.buffer,
           ContentType: 'image/png',
           Bucket: this.configService.get('s3.bucket'),
@@ -38,14 +38,14 @@ export class S3Service implements IUploadService {
     }
 
     return {
-      savedURL: this._getSavedURL(FILE_ENUM.IMAGE, formattedFilename),
+      savedURL: this.#getSavedURL(FILE_ENUM.IMAGE, formattedFilename),
     };
   }
 
   /**
    * This is for cleaning up the filename. and make it not duplicatable by adding date
    */
-  _getFormattedFileName(filename: string) {
+  #getFormattedFileName(filename: string) {
     const extension = filename.split('.').pop();
 
     const now = Date.now();
@@ -56,16 +56,16 @@ export class S3Service implements IUploadService {
    * This is for setting the directory.
    * You can make it structured granularly by adding more directory like adding userId directory.
    */
-  _getFileKey(fileType: FILE_ENUM_TYPE, formattedFilename: string) {
+  #getFileKey(fileType: FILE_ENUM_TYPE, formattedFilename: string) {
     return `${fileType}/${formattedFilename}`;
   }
 
   /**
    * Get the full url file saved.
    */
-  _getSavedURL(fileType: FILE_ENUM_TYPE, formattedFilename: string) {
+  #getSavedURL(fileType: FILE_ENUM_TYPE, formattedFilename: string) {
     return `${this.configService.get(
       's3.publicFileStorageDomain',
-    )}/${this._getFileKey(fileType, formattedFilename)}`;
+    )}/${this.#getFileKey(fileType, formattedFilename)}`;
   }
 }
