@@ -19,7 +19,7 @@ export class GetMediaResDTO extends BaseDataDTO {
   type: MEDIA_TYPES;
 
   @ApiProperty({ example: 'https://image~' })
-  image: string;
+  imageURL: string;
 
   @ApiProperty({ example: 'https://image~' })
   link: string;

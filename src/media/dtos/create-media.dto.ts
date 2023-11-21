@@ -16,9 +16,10 @@ export class CreateMediaReqDTO {
   @IsEnum(MEDIA)
   type: MEDIA_TYPES;
 
+  // Need to be removed
   @ApiProperty({ type: 'string', required: true, example: 'https://image~' })
   @IsString()
-  image: string;
+  imageURL: string;
 
   @ApiProperty({ required: true, example: 'https://image~' })
   @IsString()
@@ -48,7 +49,7 @@ export class CreateMediaResDTO extends BaseDataDTO {
 
   @ApiProperty({ type: 'string', required: true, example: 'https://image~' })
   @IsString()
-  image: string;
+  imageURL: string;
 
   @ApiProperty({ required: true, example: 'https://image~' })
   @IsString()
