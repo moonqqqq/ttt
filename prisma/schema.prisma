@@ -53,3 +53,19 @@ model Faq {
   createdAt       DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
+
+enum ModelPurpose {
+  residence
+  accommodation
+}
+
+model Model {
+  id              String @id @default(uuid())
+  representativeImageURL  String
+  name            String
+  purpose         ModelPurpose
+  imageURL        String
+  minPrice        Int
+}
+
+// model ModelDetail {}
