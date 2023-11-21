@@ -16,6 +16,7 @@ import { PrismaModule } from './shared/prisma/prisma.module';
 import { MediaModule } from './media/media.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
 import { FaqModule } from './faq/faq.module';
+import { ModelModule } from './model/model.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { FaqModule } from './faq/faq.module';
     MediaModule,
     PortfolioModule,
     FaqModule,
+    ModelModule,
   ],
   controllers: [AppController],
   providers: [AppService],
