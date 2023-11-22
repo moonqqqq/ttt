@@ -16,7 +16,6 @@ export class CreateMediaReqDTO {
   @IsEnum(MEDIA)
   type: MEDIA_TYPES;
 
-  // Need to be removed
   @ApiProperty({ type: 'string', required: true, example: 'https://image~' })
   @IsString()
   imageURL: string;
