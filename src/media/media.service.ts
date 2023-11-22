@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
 import { MEDIA_TYPES } from './interfaces/media-enum.interface';
 import { CreateMediaReqDTO } from './dtos/create-media.dto';
+import { UpdateMediaReqDTO } from './dtos/patch-media.dto';
 
 @Injectable()
 export class MediaService {
@@ -17,5 +18,14 @@ export class MediaService {
     const where = type ? { type } : {};
 
     return await this.prisma.media.findMany({ where });
+  }
+
+  async updateMedia(id: string, body: UpdateMediaReqDTO) {
+    return await this.prisma.media.update({
+      where: {
+        id,
+      },
+      data: body,
+    });
   }
 }
