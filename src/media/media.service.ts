@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
 import { MEDIA_TYPES } from './interfaces/media-enum.interface';
 import { CreateMediaReqDTO } from './dtos/create-media.dto';
@@ -27,5 +27,17 @@ export class MediaService {
       },
       data: body,
     });
+  }
+
+  async deleteMedia(id: string) {
+    try {
+      await this.prisma.media.delete({
+        where: {
+          id,
+        },
+      });
+    } catch (err) {
+      if (err.code === 'P2025') throw new NotFoundException('Wrong id');
+    }
   }
 }

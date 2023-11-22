@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -14,7 +15,13 @@ import { MediaService } from './media.service';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { GetMediaReqDTO, GetMediaResDTO } from './dtos/get-media.dto';
 import ResWrapper from '../shared/utils/res-wrapper.static';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateMediaReqDTO, CreateMediaResDTO } from './dtos/create-media.dto';
 import { ApiOkListResponse } from '../shared/decorators/api-ok-list-res.decorator';
 import { ApiCreatedDataWrapResponse } from '../shared/decorators/api-created-res.decorator';
@@ -58,6 +65,21 @@ export class MediaController {
     @Body() body: UpdateMediaReqDTO,
   ) {
     const media = await this.mediaService.updateMedia(id, body);
+    return ResWrapper.single(media);
+  }
+
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Delete media' })
+  @UseGuards(JwtAuthGuard, AdminAuthGuard)
+  @ApiNoContentResponse({
+    description: 'Deleted successfully',
+  })
+  @ApiNotFoundResponse({
+    description: 'Wrong id',
+  })
+  async deleteMedia(@Param() { id }: IdParamDTO) {
+    const media = await this.mediaService.deleteMedia(id);
     return ResWrapper.single(media);
   }
 }
