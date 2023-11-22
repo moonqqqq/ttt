@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
+import { CreatePortfolioReqDTO } from './dtos/create-portfolio.dto';
 
 @Injectable()
 export class PortfolioService {
@@ -10,6 +11,24 @@ export class PortfolioService {
     return await this.prisma.portfolio.findMany({
       where,
       include: { images: { select: { url: true } } },
+    });
+  }
+
+  async createPortfolio(body: CreatePortfolioReqDTO) {
+    return await this.prisma.portfolio.create({
+      data: {
+        ...body,
+        images: {
+          create: body.images,
+        },
+      },
+      include: {
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
     });
   }
 }
