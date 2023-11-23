@@ -32,17 +32,8 @@ model Portfolio {
   location        String
   model           String
   size            Int
-  images          PortfolioImage[]
+  images          String[]
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
-  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
-}
-
-model PortfolioImage {
-  id              String @id @default(uuid())
-  url             String
-  portfolioId     String
-  portfolio       Portfolio       @relation(fields: [portfolioId], references: [id])
-  createdAt       DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
