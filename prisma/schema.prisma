@@ -45,17 +45,11 @@ model Faq {
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
-enum ModelPurpose {
-  residence
-  accommodation
-  multipurpose
-}
-
 model Model {
   id              String @id @default(uuid())
   representativeImageURL  String
   name            String
-  purpose         ModelPurpose
+  purpose         String
   minPrice        Int
   createdAt       DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
