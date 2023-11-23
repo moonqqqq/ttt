@@ -70,7 +70,7 @@ export class JwtService implements IJwtService {
         (err, decoded) => {
           if (err) {
             if (err.message === 'jwt expired') {
-              reject(new UnauthorizedException(401, 'Token expired'));
+              reject(new UnauthorizedException('Token expired'));
             } else if (err.message === 'invalid signature') {
               reject(
                 new UnauthorizedException({ message: 'Invalid signature' }),

@@ -18,6 +18,7 @@ import { PortfolioModule } from './portfolio/portfolio.module';
 import { FaqModule } from './faq/faq.module';
 import { ModelModule } from './model/model.module';
 import { UserModule } from './user/user.module';
+import { ReputationModule } from './reputation/reputation.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { UserModule } from './user/user.module';
     FaqModule,
     ModelModule,
     UserModule,
+    ReputationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

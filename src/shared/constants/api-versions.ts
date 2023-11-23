@@ -12,4 +12,5 @@ export const API_ENDPOINT = {
   FAQ: 'faq',
   MODEL: 'model',
   USER: 'user',
+  REPUTATION: 'reputation',
 } as const;
