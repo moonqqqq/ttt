@@ -1,14 +1,20 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsEnum, IsOptional } from 'class-validator';
 import { BaseDataDTO } from '../../shared/dtos/base-timestamp.dto';
-import { Transform } from 'class-transformer';
+import {
+  PORTFOLIO_SIZE_QUERY,
+  PORTFOLIO_SIZE_QUERY_TYPE,
+} from '../portfolio.constants';
 
 export class GetPortfolioReqDTO {
-  @ApiPropertyOptional({ example: '10', required: false })
-  @IsNumber()
+  @ApiPropertyOptional({
+    enum: PORTFOLIO_SIZE_QUERY,
+    required: false,
+    example: PORTFOLIO_SIZE_QUERY.ELEVEN_TO_TWENTY,
+  })
+  @IsEnum(PORTFOLIO_SIZE_QUERY)
   @IsOptional()
-  @Transform(({ value }) => Number(value))
-  size?: number;
+  size?: PORTFOLIO_SIZE_QUERY_TYPE;
 }
 
 export class GetPortfolioResDTO extends BaseDataDTO {
