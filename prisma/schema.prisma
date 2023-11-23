@@ -71,3 +71,13 @@ model Admin {
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
+
+model Reputation {
+  id              String        @id @default(uuid())
+  imageURL        String
+  title           String
+  content         String
+  writenAt        DateTime
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
+}
