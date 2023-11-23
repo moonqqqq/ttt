@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNumber, IsString } from 'class-validator';
 import { BaseDataDTO } from '../../shared/dtos/base-timestamp.dto';
 
-export class CreatePortfolioReqDTO {
+export class UpdatePortfolioReqDTO {
   @ApiProperty({ type: 'string', example: '포천리' })
   @IsString()
   location: string;
@@ -21,7 +21,7 @@ export class CreatePortfolioReqDTO {
   images: string[];
 }
 
-export class CreatePortfolioResDTO extends BaseDataDTO {
+export class UpdatePortfolioResDTO extends BaseDataDTO {
   @ApiProperty({ type: 'string', example: '포천리' })
   location: string;
 
@@ -31,6 +31,8 @@ export class CreatePortfolioResDTO extends BaseDataDTO {
   @ApiProperty({ type: 'number', example: 3 })
   size: number;
 
-  @ApiProperty({ type: [String] })
+  @ApiProperty({ type: [String], example: ['https://s3~'] })
+  @IsString({ each: true })
+  @IsArray()
   images: string[];
 }

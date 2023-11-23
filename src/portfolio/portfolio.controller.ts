@@ -4,6 +4,8 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -21,6 +23,11 @@ import {
   CreatePortfolioReqDTO,
   CreatePortfolioResDTO,
 } from './dtos/create-portfolio.dto';
+import {
+  UpdatePortfolioReqDTO,
+  UpdatePortfolioResDTO,
+} from './dtos/update-portfolio.dto';
+import { IdParamDTO } from '../shared/dtos/id-param.dto';
 
 @ApiTags(`${API_ENDPOINT.PORTFOLIO}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.PORTFOLIO}`)
@@ -43,5 +50,20 @@ export class PortfolioController {
   async createPortfolio(@Body() body: CreatePortfolioReqDTO) {
     const createdPortfolio = await this.portfolioService.createPortfolio(body);
     return ResWrapper.single(createdPortfolio);
+  }
+
+  @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Update portfolio' })
+  @ApiCreatedDataWrapResponse(UpdatePortfolioResDTO)
+  async updatePortfolio(
+    @Param() { id }: IdParamDTO,
+    @Body() body: UpdatePortfolioReqDTO,
+  ) {
+    const updatedPortfolio = await this.portfolioService.updatePortfolio(
+      id,
+      body,
+    );
+    return ResWrapper.single(updatedPortfolio);
   }
 }
