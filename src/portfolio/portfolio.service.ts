@@ -10,7 +10,7 @@ export class PortfolioService {
     const where = size ? { size } : {};
     return await this.prisma.portfolio.findMany({
       where,
-      include: { images: { select: { url: true } } },
+      include: { images: { select: { id: true, url: true } } },
     });
   }
 
@@ -25,6 +25,7 @@ export class PortfolioService {
       include: {
         images: {
           select: {
+            id: true,
             url: true,
           },
         },
