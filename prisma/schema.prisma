@@ -51,6 +51,7 @@ model Model {
   name            String
   purpose         String
   minPrice        Int
+  detail Json?
   createdAt       DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
