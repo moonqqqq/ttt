@@ -47,7 +47,7 @@ export class MediaController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Get media list' })
+  @ApiOperation({ summary: '[API_ENDPOINT_3] Get media list' })
   @ApiOkListResponse(GetMediaResDTO)
   async getMedia(@Query() { type }: GetMediaReqDTO) {
     const medias = await this.mediaService.getMedia(type);
