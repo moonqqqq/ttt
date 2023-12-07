@@ -10,6 +10,24 @@ export class ModelService {
       include: {
         modelColors: {},
       },
+      orderBy: {
+        order: 'asc',
+      },
+    });
+  }
+
+  async getModelsForDefault() {
+    return await this.prisma.model.findMany({
+      select: {
+        id: true,
+        representativeImageURL: true,
+        name: true,
+        purpose: true,
+        minPrice: true,
+      },
+      orderBy: {
+        order: 'asc',
+      },
     });
   }
 }

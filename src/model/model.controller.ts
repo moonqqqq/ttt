@@ -17,4 +17,13 @@ export class ModelController {
     const models = await this.modelService.getModelsForNavigation();
     return ResWrapper.list(models);
   }
+
+  @Get('default')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[API_ENDPOINT_5] Get model list for default list' })
+  // @ApiOkListResponse(GetModelResDTO)
+  async getModelsDefault() {
+    const models = await this.modelService.getModelsForDefault();
+    return ResWrapper.list(models);
+  }
 }
