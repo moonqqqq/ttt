@@ -12,11 +12,7 @@ import {
 import { PortfolioService } from './portfolio.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
-import { ApiOkListResponse } from '../shared/decorators/api-ok-list-res.decorator';
-import {
-  GetPortfolioReqDTO,
-  GetPortfolioResDTO,
-} from './dtos/get-portfolio.dto';
+import { GetPortfolioReqDTO } from './dtos/get-portfolio.dto';
 import ResWrapper from '../shared/utils/res-wrapper.static';
 import { ApiCreatedDataWrapResponse } from '../shared/decorators/api-created-res.decorator';
 import {
@@ -36,11 +32,11 @@ export class PortfolioController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Get portfolio list' })
-  @ApiOkListResponse(GetPortfolioResDTO)
+  @ApiOperation({ summary: '[API_ENDPOINT_4] Get portfolio list' })
+  // @ApiOkListResponse(GetPortfolioResDTO)
   async getPortfolio(@Query() { size }: GetPortfolioReqDTO) {
     const result = await this.portfolioService.getPortfolios(size);
-    return ResWrapper.single(result);
+    return ResWrapper.list(result);
   }
 
   @Post()
