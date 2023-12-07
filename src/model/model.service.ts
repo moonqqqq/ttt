@@ -30,4 +30,27 @@ export class ModelService {
       },
     });
   }
+
+  async getModelDetail(id: string) {
+    return await this.prisma.model.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        modelColors: {
+          orderBy: {
+            order: 'asc',
+          },
+        },
+        modelExamples: {
+          orderBy: {
+            order: 'asc',
+          },
+        },
+      },
+      orderBy: {
+        order: 'asc',
+      },
+    });
+  }
 }
