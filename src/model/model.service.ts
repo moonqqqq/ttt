@@ -5,7 +5,11 @@ import { PrismaService } from '../shared/prisma/prisma.service';
 export class ModelService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getModels() {
-    return await this.prisma.model.findMany();
+  async getModelsForNavigation() {
+    return await this.prisma.model.findMany({
+      include: {
+        modelColors: {},
+      },
+    });
   }
 }

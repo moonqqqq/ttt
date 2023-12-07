@@ -2,8 +2,6 @@ import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { ModelService } from './model.service';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ApiOkListResponse } from '../shared/decorators/api-ok-list-res.decorator';
-import { GetModelResDTO } from './dtos/get-model.dto';
 import ResWrapper from '../shared/utils/res-wrapper.static';
 
 @ApiTags(`${API_ENDPOINT.MODEL}`)
@@ -11,12 +9,12 @@ import ResWrapper from '../shared/utils/res-wrapper.static';
 export class ModelController {
   constructor(private readonly modelService: ModelService) {}
 
-  @Get()
+  @Get('navigation')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Get model list' })
-  @ApiOkListResponse(GetModelResDTO)
+  @ApiOperation({ summary: '[API_ENDPOINT_1] Get model list for Navigation' })
+  // @ApiOkListResponse(GetModelResDTO)
   async getModels() {
-    const models = await this.modelService.getModels();
+    const models = await this.modelService.getModelsForNavigation();
     return ResWrapper.list(models);
   }
 }
