@@ -52,7 +52,7 @@ export class ReputationController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Get reputation list' })
+  @ApiOperation({ summary: '[API_ENDPOINT_2] Get reputation list' })
   @ApiOkListResponse(GetReputationResDTO)
   async getReputation() {
     const reputations = await this.reputationService.getReputation();

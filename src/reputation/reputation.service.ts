@@ -12,7 +12,11 @@ export class ReputationService {
   }
 
   async getReputation() {
-    return await this.prisma.reputation.findMany();
+    return await this.prisma.reputation.findMany({
+      orderBy: {
+        order: 'asc',
+      },
+    });
   }
 
   async updateReputation(id: string, body) {
