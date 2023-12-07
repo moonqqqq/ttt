@@ -18,17 +18,19 @@ enum MediaType {
 model Media {
   id   String @id @default(uuid())
   title       String
-  imageURL       String
+  imageURL       String?
   link      String
   publisher String
   uploadedAt     DateTime @db.Timestamptz(3)
   type MediaType
+  order     Int   @default(0)
   createdAt           DateTime      @default(now()) @db.Timestamptz(3)
   updatedAt           DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model Portfolio {
   id              String @id @default(uuid())
+  order     Int   @default(0)
   location        String
   model           String
   size            Int
@@ -45,18 +47,73 @@ model Faq {
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
-model Model {
-  id              String @id @default(uuid())
-  representativeImageURL  String
-  name            String
-  purpose         String
-  minPrice        Int
-  detail Json?
-  createdAt       DateTime        @default(now()) @db.Timestamptz(3)
-  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
+enum ModelType {
+  exterior
+  interior1
+  interior2
 }
 
-// model ModelDetail {}
+model ModelOption {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  type            ModelType   @default(exterior)
+  name            String
+  isMultipleSelectable  Boolean @default(false)
+  list            Json
+  
+  modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
+  modelId     String
+  Model Model @relation(fields: [modelId], references: [id])
+}
+
+model Model {
+  id              String @id @default(uuid())
+  order     Int   @default(0)
+  representativeImageURL  String?
+  name            String
+  description     String   @default("")
+  minPrice        Int
+
+  size            String    @default("")
+  sizeDetail      String    @default("-")
+  exteriorMaterial  String[]
+  insulation      String    @default("")
+  structure       String   @default("")
+  windows         String[]
+  furniture         String[]
+  purpose         String[]
+  purposeDetail         String[]
+  
+
+
+  createdAt       DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
+  
+  modelColors     ModelColor[]
+  modelExamples     ModelExample[]
+  modelOptions     ModelOption[]
+}
+
+model ModelColor {
+  id              String @id @default(uuid())
+  order     Int   @default(0)
+  imageURL  String?
+  colorId   String
+  name      String
+  modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
+  modelId     String
+  Model Model @relation(fields: [modelId], references: [id])
+}
+
+model ModelExample {
+  id              String @id @default(uuid())
+  order     Int   @default(0)
+  address   String
+  imageURL  String?
+  modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
+  modelId     String
+  Model Model @relation(fields: [modelId], references: [id])
+}
 
 model Admin {
   id              String        @id @default(uuid())
@@ -69,7 +126,8 @@ model Admin {
 
 model Reputation {
   id              String        @id @default(uuid())
-  imageURL        String
+  order     Int   @default(0)
+  imageURL        String?
   title           String
   content         String
   writenAt        DateTime
