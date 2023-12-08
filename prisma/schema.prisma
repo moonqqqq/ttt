@@ -47,25 +47,6 @@ model Faq {
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
-enum ModelType {
-  exterior
-  interior1
-  interior2
-}
-
-model ModelOption {
-  id              String @id @default(uuid())
-  order           Int         @default(0)
-  type            ModelType   @default(exterior)
-  name            String
-  isMultipleSelectable  Boolean @default(false)
-  list            Json
-  
-  modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
-  modelId     String
-  Model Model @relation(fields: [modelId], references: [id])
-}
-
 model Model {
   id              String @id @default(uuid())
   order     Int   @default(0)
@@ -90,8 +71,44 @@ model Model {
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
   
   modelColors     ModelColor[]
+  modelFirstOptions     ModelFirstOption[]
   modelExamples     ModelExample[]
-  modelOptions     ModelOption[]
+}
+
+model ModelFirstOption {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  name            String      @default("")
+  isDefault       Boolean     @default(false)
+  modelSecondOptions     ModelSecondOption[]
+
+  modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
+  modelId     String
+  Model Model @relation(fields: [modelId], references: [id])     
+}
+
+model ModelSecondOption {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  name            String
+  isMultipleSelectable  Boolean @default(false)
+  optionDetails   OptionDetail[]            
+  
+  modelFirstOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFirstOptionId". so manually added for admin feature
+  modelFirstOptionId     String
+  ModelFirstOption ModelFirstOption @relation(fields: [modelFirstOptionId], references: [id])     
+}
+
+model OptionDetail {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  name            String
+  price           Int
+  isDefault       Boolean   @default(false)
+  
+  modelSecondOptionIdSubstitude    String    @default("") // admin.js/relation can not find "ModelSecondOptionId". so manually added for admin feature
+  ModelSecondOptionId     String
+  ModelSecondOption ModelSecondOption @relation(fields: [ModelSecondOptionId], references: [id])     
 }
 
 model ModelColor {
