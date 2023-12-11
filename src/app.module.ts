@@ -19,6 +19,7 @@ import { FaqModule } from './faq/faq.module';
 import { ModelModule } from './model/model.module';
 import { UserModule } from './user/user.module';
 import { ReputationModule } from './reputation/reputation.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { ReputationModule } from './reputation/reputation.module';
     ModelModule,
     UserModule,
     ReputationModule,
+    ReservationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

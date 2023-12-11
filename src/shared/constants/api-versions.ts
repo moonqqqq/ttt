@@ -13,4 +13,5 @@ export const API_ENDPOINT = {
   MODEL: 'model',
   USER: 'user',
   REPUTATION: 'reputation',
+  RESERVATION: 'reservation',
 } as const;
