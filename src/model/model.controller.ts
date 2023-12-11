@@ -36,4 +36,13 @@ export class ModelController {
     const model = await this.modelService.getModelDetail(id);
     return ResWrapper.single(model);
   }
+
+  @Get(':id/custom-selections')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[API_ENDPOINT_] Get model detail' })
+  // @ApiOkListResponse(GetModelResDTO)
+  async getModelCustumSelections(@Param() { id }: IdParamDTO) {
+    const model = await this.modelService.getModelCustomSelections(id);
+    return ResWrapper.single(model);
+  }
 }

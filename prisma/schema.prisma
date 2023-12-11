@@ -79,6 +79,7 @@ model ModelFirstOption {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String      @default("")
+  price           Int         @default(0)
   isDefault       Boolean     @default(false)
   modelSecondOptions     ModelSecondOption[]
 

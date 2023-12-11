@@ -53,4 +53,49 @@ export class ModelService {
       },
     });
   }
+
+  async getModelCustomSelections(id: string) {
+    return await this.prisma.model.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        modelFirstOptions: {
+          select: {
+            name: true,
+            order: true,
+            price: true,
+            isDefault: true,
+            modelSecondOptions: {
+              select: {
+                name: true,
+                optionDetails: {
+                  select: {
+                    order: true,
+                    name: true,
+                    price: true,
+                    isDefault: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      // include: {
+      //   modelFirstOptions: {
+      //     include: {
+      //       modelSecondOptions: {
+      //         include: {
+      //           optionDetails: {}
+      //         }
+      //       }
+      //     },
+      //   }
+      // },
+      orderBy: {
+        order: 'asc',
+      },
+    });
+  }
 }
