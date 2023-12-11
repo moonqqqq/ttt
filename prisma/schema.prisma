@@ -71,11 +71,11 @@ model Model {
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
   
   modelColors     ModelColor[]
-  modelFirstOptions     ModelFirstOption[]
+  modelFloorOptions     ModelFloorOption[]
   modelExamples     ModelExample[]
 }
 
-model ModelFirstOption {
+model ModelFloorOption {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String      @default("")
@@ -95,9 +95,9 @@ model ModelSecondOption {
   isMultipleSelectable  Boolean @default(false)
   optionDetails   OptionDetail[]            
   
-  modelFirstOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFirstOptionId". so manually added for admin feature
-  modelFirstOptionId     String
-  ModelFirstOption ModelFirstOption @relation(fields: [modelFirstOptionId], references: [id])     
+  modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
+  modelFloorOptionId     String
+  ModelFloorOption ModelFloorOption @relation(fields: [modelFloorOptionId], references: [id])     
 }
 
 model OptionDetail {

@@ -60,7 +60,7 @@ export class ModelService {
         id,
       },
       select: {
-        modelFirstOptions: {
+        modelFloorOptions: {
           select: {
             name: true,
             order: true,
@@ -83,7 +83,7 @@ export class ModelService {
         },
       },
       // include: {
-      //   modelFirstOptions: {
+      //   modelFloorOptions: {
       //     include: {
       //       modelSecondOptions: {
       //         include: {
