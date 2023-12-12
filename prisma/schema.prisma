@@ -82,6 +82,7 @@ model ModelFloorOption {
   price           Int         @default(0)
   isDefault       Boolean     @default(false)
   modelSecondOptions     ModelSecondOption[]
+  ModelKitchenTypes     ModelKitchenType[]         
 
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
@@ -93,7 +94,7 @@ model ModelSecondOption {
   order           Int         @default(0)
   name            String
   isMultipleSelectable  Boolean @default(false)
-  optionDetails   OptionDetail[]            
+  optionDetails   OptionDetail[]   
   
   modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
   modelFloorOptionId     String
@@ -110,6 +111,41 @@ model OptionDetail {
   modelSecondOptionIdSubstitude    String    @default("") // admin.js/relation can not find "ModelSecondOptionId". so manually added for admin feature
   ModelSecondOptionId     String
   ModelSecondOption ModelSecondOption @relation(fields: [ModelSecondOptionId], references: [id])     
+}
+
+model ModelKitchenType {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  name            String
+  options   ModelKitchenOption[]            
+  
+  modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
+  modelFloorOptionId     String
+  ModelFloorOption ModelFloorOption @relation(fields: [modelFloorOptionId], references: [id])     
+}
+
+model ModelKitchenOption {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  name            String
+  isMultipleSelectable  Boolean @default(false)
+  optionDetails   KitchenOptionDetail[]            
+  
+  modelKitchenTypeIdSubstitude    String    @default("") // admin.js/relation can not find "modelKitchenTypeId". so manually added for admin feature
+  modelKitchenTypeId     String
+  ModelKitchenType ModelKitchenType @relation(fields: [modelKitchenTypeId], references: [id])     
+}
+
+model KitchenOptionDetail {
+  id              String @id @default(uuid())
+  order           Int         @default(0)
+  name            String
+  price           Int
+  isDefault       Boolean   @default(false)
+  
+  modelKitchenOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelKitchenOptionId". so manually added for admin feature
+  modelKitchenOptionId     String
+  ModelKitchenOption ModelKitchenOption @relation(fields: [modelKitchenOptionId], references: [id])     
 }
 
 model ModelColor {
