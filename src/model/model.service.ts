@@ -60,6 +60,7 @@ export class ModelService {
         id,
       },
       select: {
+        modelColors: {},
         modelFloorOptions: {
           select: {
             id: true,
@@ -70,6 +71,7 @@ export class ModelService {
             modelSecondOptions: {
               select: {
                 name: true,
+                isMultipleSelectable: true,
                 optionDetails: {
                   select: {
                     order: true,
