@@ -14,8 +14,8 @@ export class MediaService {
     });
   }
 
-  async getMedia(type?: MEDIA_TYPES) {
-    const where = type ? { type } : {};
+  async getMedia(type?: MEDIA_TYPES | 'all') {
+    const where = type && type !== 'all' ? { type } : {};
 
     return await this.prisma.media.findMany({ where });
   }
