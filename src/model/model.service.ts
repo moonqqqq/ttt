@@ -62,6 +62,7 @@ export class ModelService {
       select: {
         modelFloorOptions: {
           select: {
+            id: true,
             name: true,
             order: true,
             price: true,
@@ -76,25 +77,41 @@ export class ModelService {
                     price: true,
                     isDefault: true,
                   },
+                  orderBy: {
+                    order: 'asc',
+                  },
                 },
+              },
+              orderBy: {
+                order: 'asc',
+              },
+            },
+            ModelKitchenTypes: {
+              select: {
+                name: true,
+                order: true,
+                options: {
+                  select: {
+                    name: true,
+                    optionDetails: {
+                      select: {
+                        name: true,
+                        order: true,
+                        isDefault: true,
+                      },
+                    },
+                  },
+                },
+              },
+              orderBy: {
+                order: 'asc',
               },
             },
           },
+          orderBy: {
+            order: 'asc',
+          },
         },
-      },
-      // include: {
-      //   modelFloorOptions: {
-      //     include: {
-      //       modelSecondOptions: {
-      //         include: {
-      //           optionDetails: {}
-      //         }
-      //       }
-      //     },
-      //   }
-      // },
-      orderBy: {
-        order: 'asc',
       },
     });
   }
