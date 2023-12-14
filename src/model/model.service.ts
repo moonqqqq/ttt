@@ -31,6 +31,26 @@ export class ModelService {
     });
   }
 
+  async getOtherModels(id: string) {
+    return await this.prisma.model.findMany({
+      where: {
+        id: {
+          not: id,
+        },
+      },
+      select: {
+        id: true,
+        representativeImageURL: true,
+        name: true,
+        purpose: true,
+        minPrice: true,
+      },
+      orderBy: {
+        order: 'asc',
+      },
+    });
+  }
+
   async getModelDetail(id: string) {
     return await this.prisma.model.findFirst({
       where: {
@@ -95,10 +115,12 @@ export class ModelService {
                 options: {
                   select: {
                     name: true,
+                    isMultipleSelectable: true,
                     optionDetails: {
                       select: {
                         name: true,
                         order: true,
+                        price: true,
                         isDefault: true,
                       },
                     },

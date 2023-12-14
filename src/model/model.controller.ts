@@ -45,4 +45,13 @@ export class ModelController {
     const model = await this.modelService.getModelCustomSelections(id);
     return ResWrapper.single(model);
   }
+
+  @Get(':id/others')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[API_ENDPOINT_7] Get other model list' })
+  // @ApiOkListResponse(GetModelResDTO)
+  async getOtherModels(@Param() { id }: IdParamDTO) {
+    const models = await this.modelService.getOtherModels(id);
+    return ResWrapper.list(models);
+  }
 }
