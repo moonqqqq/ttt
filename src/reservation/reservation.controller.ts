@@ -16,7 +16,7 @@ export class ReservationController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Create reservation' })
+  @ApiOperation({ summary: '[API_ENDPOINT_8] Create reservation' })
   @ApiCreatedDataWrapResponse(CreateReservationResDTO)
   async createReservation(@Body() body: CreateReservationReqDTO) {
     const createdReservation =
