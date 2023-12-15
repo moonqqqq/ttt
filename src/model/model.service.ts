@@ -146,7 +146,8 @@ export class ModelService {
     });
 
     if (language === 'KO') return translateToKO(result as any);
-    return result as any;
+
+    return deleteAfterFirstParenthesis(result);
   }
 }
 
@@ -178,4 +179,42 @@ function translateToKO(result) {
     }
   });
   return result;
+}
+
+function deleteAfterFirstParenthesis(result) {
+  result.modelColors.forEach((each) => {
+    each.name = extractStringBeforeFirstParenthesis(each.name);
+  });
+  result.modelFloorOptions.forEach((each) => {
+    each.name = extractStringBeforeFirstParenthesis(each.name);
+    each.modelSecondOptions.forEach((eachSecond) => {
+      eachSecond.name = extractStringBeforeFirstParenthesis(eachSecond.name);
+      eachSecond.optionDetails.forEach((eachDetail) => {
+        eachDetail.name = extractStringBeforeFirstParenthesis(eachDetail.name);
+      });
+    });
+    if (each.ModelKitchenTypes && each.ModelKitchenTypes.length > 0) {
+      each.ModelKitchenTypes.forEach((kitchenType) => {
+        kitchenType.name = extractStringBeforeFirstParenthesis(
+          kitchenType.name,
+        );
+
+        kitchenType.options.forEach((kitchenOption) => {
+          kitchenOption.name = extractStringBeforeFirstParenthesis(
+            kitchenOption.name,
+          );
+        });
+      });
+    }
+  });
+  return result;
+}
+
+function extractStringBeforeFirstParenthesis(inputString: string) {
+  const indexOfFirstParenthesis = inputString.indexOf('(');
+  if (indexOfFirstParenthesis !== -1) {
+    return inputString.substring(0, indexOfFirstParenthesis).trim();
+  } else {
+    return inputString.trim();
+  }
 }
