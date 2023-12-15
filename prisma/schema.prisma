@@ -79,6 +79,7 @@ model ModelFloorOption {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String      @default("")
+  nameKO            String      @default("")
   price           Int         @default(0)
   isDefault       Boolean     @default(false)
   modelSecondOptions     ModelSecondOption[]
@@ -93,6 +94,7 @@ model ModelSecondOption {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String
+  nameKO            String      @default("")
   isMultipleSelectable  Boolean @default(false)
   optionDetails   OptionDetail[]   
   
@@ -105,6 +107,7 @@ model OptionDetail {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String
+  nameKO            String      @default("")
   price           Int
   isDefault       Boolean   @default(false)
   
@@ -117,6 +120,7 @@ model ModelKitchenType {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String
+  nameKO            String      @default("")
   options   ModelKitchenOption[]            
   
   modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
@@ -128,6 +132,7 @@ model ModelKitchenOption {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String
+  nameKO            String      @default("")
   isMultipleSelectable  Boolean @default(false)
   optionDetails   KitchenOptionDetail[]            
   
@@ -140,6 +145,7 @@ model KitchenOptionDetail {
   id              String @id @default(uuid())
   order           Int         @default(0)
   name            String
+  nameKO            String      @default("")
   price           Int
   isDefault       Boolean   @default(false)
   
@@ -154,6 +160,7 @@ model ModelColor {
   imageURL  String?
   colorId   String
   name      String
+  nameKO            String      @default("")
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
   Model Model @relation(fields: [modelId], references: [id])

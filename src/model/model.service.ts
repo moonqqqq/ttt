@@ -85,17 +85,20 @@ export class ModelService {
           select: {
             id: true,
             name: true,
+            nameKO: true,
             order: true,
             price: true,
             isDefault: true,
             modelSecondOptions: {
               select: {
                 name: true,
+                nameKO: true,
                 isMultipleSelectable: true,
                 optionDetails: {
                   select: {
                     order: true,
                     name: true,
+                    nameKO: true,
                     price: true,
                     isDefault: true,
                   },
@@ -111,14 +114,17 @@ export class ModelService {
             ModelKitchenTypes: {
               select: {
                 name: true,
+                nameKO: true,
                 order: true,
                 options: {
                   select: {
                     name: true,
+                    nameKO: true,
                     isMultipleSelectable: true,
                     optionDetails: {
                       select: {
                         name: true,
+                        nameKO: true,
                         order: true,
                         price: true,
                         isDefault: true,
