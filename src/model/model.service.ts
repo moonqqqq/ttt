@@ -74,8 +74,8 @@ export class ModelService {
     });
   }
 
-  async getModelCustomSelections(id: string) {
-    return await this.prisma.model.findFirst({
+  async getModelCustomSelections(id: string, language: 'KO' | 'EN') {
+    const result = await this.prisma.model.findFirst({
       where: {
         id,
       },
@@ -144,5 +144,38 @@ export class ModelService {
         },
       },
     });
+
+    if (language === 'KO') return translateToKO(result as any);
+    return result as any;
   }
+}
+
+function translateToKO(result) {
+  result.modelColors.forEach((each) => {
+    each.name = each.nameKO;
+    delete each.nameKO;
+  });
+  result.modelFloorOptions.forEach((each) => {
+    each.name = each.nameKO;
+    delete each.nameKO;
+    each.modelSecondOptions.forEach((eachSecond) => {
+      eachSecond.name = eachSecond.nameKO;
+      delete eachSecond.nameKO;
+      eachSecond.optionDetails.forEach((eachDetail) => {
+        eachDetail.name = eachDetail.nameKO;
+        delete eachDetail.nameKO;
+      });
+    });
+    if (each.ModelKitchenTypes && each.ModelKitchenTypes.length > 0) {
+      each.ModelKitchenTypes.forEach((kitchenType) => {
+        kitchenType.name == kitchenType.nameKO;
+        delete kitchenType.nameKO;
+        kitchenType.options.forEach((kitchenOption) => {
+          kitchenOption.name = kitchenOption.nameKO;
+          delete kitchenOption.nameKO;
+        });
+      });
+    }
+  });
+  return result;
 }

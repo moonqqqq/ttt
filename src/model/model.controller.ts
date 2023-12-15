@@ -1,4 +1,11 @@
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Req,
+} from '@nestjs/common';
 import { ModelService } from './model.service';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -41,8 +48,11 @@ export class ModelController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_] Get model detail' })
   // @ApiOkListResponse(GetModelResDTO)
-  async getModelCustumSelections(@Param() { id }: IdParamDTO) {
-    const model = await this.modelService.getModelCustomSelections(id);
+  async getModelCustumSelections(@Req() req, @Param() { id }: IdParamDTO) {
+    const model = await this.modelService.getModelCustomSelections(
+      id,
+      req.headers.language,
+    );
     return ResWrapper.single(model);
   }
 
