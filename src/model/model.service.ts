@@ -6,7 +6,7 @@ export class ModelService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getModelsForNavigation() {
-    return await this.prisma.model.findMany({
+    const result = await this.prisma.model.findMany({
       include: {
         modelColors: {},
       },
@@ -14,6 +14,12 @@ export class ModelService {
         order: 'asc',
       },
     });
+
+    result.forEach((each) => {
+      each.size += '평';
+      each.purpose[0] += '용';
+    });
+    return result;
   }
 
   async getModelsForDefault() {
