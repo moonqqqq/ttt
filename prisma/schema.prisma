@@ -161,6 +161,7 @@ model ModelColor {
   colorId   String
   name      String
   nameKO            String      @default("")
+  isDefault       Boolean   @default(false)
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
   Model Model @relation(fields: [modelId], references: [id])
