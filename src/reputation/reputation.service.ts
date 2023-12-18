@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
+import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
 
 @Injectable()
 export class ReputationService {
@@ -11,12 +12,21 @@ export class ReputationService {
     });
   }
 
-  async getReputation() {
-    return await this.prisma.reputation.findMany({
+  async getReputation(language?: LANGUAGE_TYPE) {
+    const result = await this.prisma.reputation.findMany({
       orderBy: {
         order: 'asc',
       },
     });
+
+    if (language === LANGUAGE.KO) {
+      result.forEach((each) => {
+        each.title = each.titleKO;
+        each.content = each.contentKO;
+      });
+    }
+
+    return result;
   }
 
   async updateReputation(id: string, body) {

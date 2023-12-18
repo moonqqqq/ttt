@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Param,
@@ -34,6 +35,7 @@ import {
   UpdateReputationResDTO,
 } from './\bdtos/update-reputation.dto';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
+import { LANGUAGE_TYPE } from '../shared/constants/language';
 
 @ApiTags(`${API_ENDPOINT.REPUTATION}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.REPUTATION}`)
@@ -54,8 +56,8 @@ export class ReputationController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_2] Get reputation list' })
   @ApiOkListResponse(GetReputationResDTO)
-  async getReputation() {
-    const reputations = await this.reputationService.getReputation();
+  async getReputation(@Headers('language') language: LANGUAGE_TYPE) {
+    const reputations = await this.reputationService.getReputation(language);
 
     return ResWrapper.list(reputations);
   }
