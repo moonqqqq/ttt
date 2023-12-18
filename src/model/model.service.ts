@@ -19,12 +19,13 @@ export class ModelService {
     result.forEach((each) => {
       each.size += '평';
       each.purpose[0] += '용';
+      (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
     });
     return result;
   }
 
   async getModelsForDefault() {
-    return await this.prisma.model.findMany({
+    const result = await this.prisma.model.findMany({
       select: {
         id: true,
         representativeImageURL: true,
@@ -36,6 +37,12 @@ export class ModelService {
         order: 'asc',
       },
     });
+
+    result.forEach((each) => {
+      (each as any).minPrice = `${each.minPrice.toLocaleString('ko-KR')}원~`;
+    });
+
+    return result;
   }
 
   async getOtherModels(id: string) {
@@ -59,7 +66,7 @@ export class ModelService {
   }
 
   async getModelDetail(id: string) {
-    return await this.prisma.model.findFirst({
+    const result = await this.prisma.model.findFirst({
       where: {
         id,
       },
@@ -79,6 +86,9 @@ export class ModelService {
         order: 'asc',
       },
     });
+
+    (result as any).minPrice = `₩${result.minPrice.toLocaleString('ko-KR')}~`;
+    return result;
   }
 
   async getModelCustomSelections(id: string, language: LANGUAGE_TYPE) {
