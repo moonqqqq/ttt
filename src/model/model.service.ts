@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
+import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
 
 @Injectable()
 export class ModelService {
@@ -80,7 +81,7 @@ export class ModelService {
     });
   }
 
-  async getModelCustomSelections(id: string, language: 'KO' | 'EN') {
+  async getModelCustomSelections(id: string, language: LANGUAGE_TYPE) {
     const result = await this.prisma.model.findFirst({
       where: {
         id,
@@ -151,7 +152,7 @@ export class ModelService {
       },
     });
 
-    if (language === 'KO') return translateToKO(result as any);
+    if (language === LANGUAGE.KO) return translateToKO(result as any);
 
     return deleteAfterFirstParenthesis(result);
   }

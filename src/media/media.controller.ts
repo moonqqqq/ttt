@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Param,
@@ -29,6 +30,7 @@ import { JwtAuthGuard } from '../shared/guards/jwt-auth.guard';
 import { AdminAuthGuard } from '../shared/guards/admin-auth.guard';
 import { UpdateMediaReqDTO, UpdateMediaResDTO } from './dtos/patch-media.dto';
 import { IdParamDTO } from '../shared/dtos/id-param.dto';
+import { LANGUAGE_TYPE } from '../shared/constants/language';
 
 @ApiTags(`${API_ENDPOINT.MEDIA}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.MEDIA}`)
@@ -49,8 +51,11 @@ export class MediaController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_3] Get media list' })
   @ApiOkListResponse(GetMediaResDTO)
-  async getMedia(@Query() { type }: GetMediaReqDTO) {
-    const medias = await this.mediaService.getMedia(type);
+  async getMedia(
+    @Query() { type }: GetMediaReqDTO,
+    @Headers('language') language: LANGUAGE_TYPE,
+  ) {
+    const medias = await this.mediaService.getMedia(type, language);
 
     return ResWrapper.list(medias);
   }

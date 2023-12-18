@@ -3,6 +3,7 @@ import { PrismaService } from '../shared/prisma/prisma.service';
 import { MEDIA_TYPES } from './interfaces/media-enum.interface';
 import { CreateMediaReqDTO } from './dtos/create-media.dto';
 import { UpdateMediaReqDTO } from './dtos/patch-media.dto';
+import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
 
 @Injectable()
 export class MediaService {
@@ -14,10 +15,17 @@ export class MediaService {
     });
   }
 
-  async getMedia(type?: MEDIA_TYPES | 'all') {
+  async getMedia(type: MEDIA_TYPES | 'all' = 'all', language: LANGUAGE_TYPE) {
     const where = type && type !== 'all' ? { type } : {};
 
-    return await this.prisma.media.findMany({ where });
+    const result = await this.prisma.media.findMany({ where });
+    if (language === LANGUAGE.KO) {
+      result.forEach((each) => {
+        each.title = each.titleKO;
+        each.publisher = each.publisherKO;
+      });
+    }
+    return result;
   }
 
   async updateMedia(id: string, body: UpdateMediaReqDTO) {

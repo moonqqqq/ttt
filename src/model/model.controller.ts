@@ -1,16 +1,17 @@
 import {
   Controller,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Param,
-  Req,
 } from '@nestjs/common';
 import { ModelService } from './model.service';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import ResWrapper from '../shared/utils/res-wrapper.static';
 import { IdParamDTO } from '../shared/dtos/id-param.dto';
+import { LANGUAGE_TYPE } from '../shared/constants/language';
 
 @ApiTags(`${API_ENDPOINT.MODEL}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.MODEL}`)
@@ -48,10 +49,13 @@ export class ModelController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_] Get model detail' })
   // @ApiOkListResponse(GetModelResDTO)
-  async getModelCustumSelections(@Req() req, @Param() { id }: IdParamDTO) {
+  async getModelCustumSelections(
+    @Headers('language') language: LANGUAGE_TYPE,
+    @Param() { id }: IdParamDTO,
+  ) {
     const model = await this.modelService.getModelCustomSelections(
       id,
-      req.headers.language,
+      language,
     );
     return ResWrapper.single(model);
   }
