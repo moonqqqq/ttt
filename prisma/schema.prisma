@@ -56,17 +56,25 @@ model Model {
   heroImageURL  String?
   name            String
   description     String   @default("")
+  descriptionKO     String   @default("")
   minPrice        Int
+  isDarkMode      Boolean @default(false)
 
   size            String    @default("")
   sizeDetail      String    @default("-")
   exteriorMaterial  String[]
   insulation      String    @default("")
+  insulationKO      String    @default("")
   structure       String   @default("")
+  structureKO       String   @default("")
   windows         String[]
+  windowsKO         String[]
   furniture         String[]
+  furnitureKO         String[]
   purpose         String[]
+  purposeKO         String[]
   purposeDetail         String[]
+  purposeDetailKO         String[]
   
 
 
