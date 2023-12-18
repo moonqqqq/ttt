@@ -18,9 +18,11 @@ enum MediaType {
 model Media {
   id   String @id @default(uuid())
   title       String
+  titleKO     String?
   imageURL       String?
   link      String
   publisher String
+  publisherKO String?
   uploadedAt     DateTime @db.Timestamptz(3)
   type MediaType
   order     Int   @default(0)
@@ -192,7 +194,9 @@ model Reputation {
   order     Int   @default(0)
   imageURL        String?
   title           String
+  titleKO         String?
   content         String
+  contentKO         String?
   writenAt        DateTime
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
