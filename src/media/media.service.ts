@@ -22,12 +22,20 @@ export class MediaService {
     const where = type && type !== 'all' ? { type } : {};
 
     const result = await this.prisma.media.findMany({ where });
+
     if (language === LANGUAGE.KO) {
       result.forEach((each) => {
         each.title = each.titleKO;
         each.publisher = each.publisherKO;
       });
     }
+
+    result.forEach((each) => {
+      (each as any).createdAt = each.createdAt
+        .toISOString()
+        .split('T')[0]
+        .replaceAll('-', '.');
+    });
     return result;
   }
 
