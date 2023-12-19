@@ -15,7 +15,10 @@ export class MediaService {
     });
   }
 
-  async getMedia(type: MEDIA_TYPES | 'all' = 'all', language: LANGUAGE_TYPE) {
+  async getMedia(
+    type: MEDIA_TYPES | 'all' = 'all',
+    language: LANGUAGE_TYPE = LANGUAGE.KO,
+  ) {
     const where = type && type !== 'all' ? { type } : {};
 
     const result = await this.prisma.media.findMany({ where });

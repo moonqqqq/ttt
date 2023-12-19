@@ -91,7 +91,10 @@ export class ModelService {
     return result;
   }
 
-  async getModelCustomSelections(id: string, language: LANGUAGE_TYPE) {
+  async getModelCustomSelections(
+    id: string,
+    language: LANGUAGE_TYPE = LANGUAGE.KO,
+  ) {
     const result = await this.prisma.model.findFirst({
       where: {
         id,

@@ -12,7 +12,7 @@ export class ReputationService {
     });
   }
 
-  async getReputation(language?: LANGUAGE_TYPE) {
+  async getReputation(language: LANGUAGE_TYPE = LANGUAGE.KO) {
     const result = await this.prisma.reputation.findMany({
       orderBy: {
         order: 'asc',
