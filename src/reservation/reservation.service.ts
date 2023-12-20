@@ -22,6 +22,8 @@ export class ReservationService {
     });
     model.value = foundModel.name;
 
+    result.forEach((each) => delete each.price);
+
     return {
       user,
       model,
@@ -70,13 +72,13 @@ export class ReservationService {
     });
 
     let result = [];
-    // result.push({user: {
-    //     name: reservation.name,
-    //     email: reservation.email
-    // }})
-    const user = { name: reservation.name, email: reservation.email };
 
-    // result.push({name: "모델", id: colorFiltered.modelId, value: "", imageURL: colorFiltered.imageURL});
+    const user = {
+      name: reservation.name,
+      email: reservation.email,
+      phoneNumber: reservation.phoneNumber,
+    };
+
     const model = {
       name: '모델',
       id: colorFiltered.modelId,
@@ -93,8 +95,11 @@ export class ReservationService {
       ...secondOptionFiltered.map((each) => {
         return {
           name: each.name,
-          value: each.optionDetails[0]?.name,
-          price: each.optionDetails[0]?.price,
+          value: each.optionDetails.map((each) => each.name),
+          price: each.optionDetails.reduce(
+            (accumulator, each) => accumulator + each.price,
+            0,
+          ),
         };
       }),
     );
@@ -103,7 +108,11 @@ export class ReservationService {
         ...kitchenFiltered?.options?.map((each) => {
           return {
             name: each.name,
-            value: each.optionDetails[0]?.name,
+            value: each.optionDetails.map((each) => each.name),
+            price: each.optionDetails.reduce(
+              (accumulator, each) => accumulator + each.price,
+              0,
+            ),
           };
         }),
       );
