@@ -101,6 +101,8 @@ export class ModelService {
         id,
       },
       select: {
+        name: true,
+        minPrice: true,
         modelColors: {},
         modelFloorOptions: {
           select: {
