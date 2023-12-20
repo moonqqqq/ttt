@@ -56,6 +56,7 @@ export class ModelService {
         id: true,
         representativeImageURL: true,
         name: true,
+        nameKO: true,
         purpose: true,
         minPrice: true,
       },
