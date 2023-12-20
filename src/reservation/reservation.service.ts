@@ -6,7 +6,7 @@ export class ReservationService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createReservation(body) {
-    await this.prisma.reservation.create({
+    const reservation = await this.prisma.reservation.create({
       data: body,
     });
     const { model: model, user, result } = this.#createReservationReceipt(body);
@@ -22,14 +22,24 @@ export class ReservationService {
     });
     model.value = foundModel.name;
 
-    result.forEach((each) => delete each.price);
+    const totalPrice = this.#calculateTotalPrice(foundModel.minPrice, result);
 
-    return {
-      user,
-      model,
-      options: result,
-      totalPrice: this.#calculateTotalPrice(foundModel.minPrice, result),
-    };
+    const options = {};
+    result.forEach((item) => {
+      options[item.name] = item.value;
+    });
+
+    await this.prisma.reservationReceipt.create({
+      data: {
+        reservationId: reservation.id,
+        user,
+        model,
+        options,
+        totalPrice,
+      },
+    });
+
+    return reservation;
   }
 
   #calculateTotalPrice(minPrice: number, options: any[]) {

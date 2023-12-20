@@ -224,3 +224,13 @@ model Reservation {
   address         String
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
 }
+
+model ReservationReceipt {
+  id              String        @id @default(uuid())
+  reservationId   String
+  user            Json?
+  model           Json?
+  options           Json?
+  totalPrice      Int
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+}
