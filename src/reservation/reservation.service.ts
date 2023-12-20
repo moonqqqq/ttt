@@ -92,7 +92,7 @@ export class ReservationService {
     const model = {
       name: '',
       id: colorFiltered.modelId,
-      imageURL: colorFiltered.imageURL,
+      imageURL: colorFiltered.imageURLNBG || colorFiltered.imageURL,
     };
     result.push({ name: '외장재 색상', value: colorFiltered.name });
     result.push({

@@ -173,6 +173,7 @@ model ModelColor {
   id              String @id @default(uuid())
   order     Int   @default(0)
   imageURL  String?
+  imageURLNBG String?
   colorId   String
   name      String
   nameKO            String      @default("")
