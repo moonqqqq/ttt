@@ -55,6 +55,7 @@ model Model {
   representativeImageURL  String?
   heroImageURL  String?
   name            String
+  nameKO            String  @default("")
   description     String   @default("")
   descriptionKO     String   @default("")
   minPrice        Int
@@ -93,6 +94,7 @@ model ModelFloorOption {
   nameKO            String      @default("")
   price           Int         @default(0)
   isDefault       Boolean     @default(false)
+  isFixed       Boolean     @default(false)
   modelSecondOptions     ModelSecondOption[]
   ModelKitchenTypes     ModelKitchenType[]         
 
@@ -121,6 +123,7 @@ model OptionDetail {
   nameKO            String      @default("")
   price           Int
   isDefault       Boolean   @default(false)
+  isFixed       Boolean     @default(false)
   
   modelSecondOptionIdSubstitude    String    @default("") // admin.js/relation can not find "ModelSecondOptionId". so manually added for admin feature
   ModelSecondOptionId     String
@@ -159,6 +162,7 @@ model KitchenOptionDetail {
   nameKO            String      @default("")
   price           Int
   isDefault       Boolean   @default(false)
+  isFixed       Boolean     @default(false)
   
   modelKitchenOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelKitchenOptionId". so manually added for admin feature
   modelKitchenOptionId     String
@@ -173,6 +177,7 @@ model ModelColor {
   name      String
   nameKO            String      @default("")
   isDefault       Boolean   @default(false)
+  isFixed       Boolean     @default(false)
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
   Model Model @relation(fields: [modelId], references: [id])
