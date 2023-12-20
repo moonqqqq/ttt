@@ -20,7 +20,7 @@ export class ReservationService {
         minPrice: true,
       },
     });
-    model.value = foundModel.name;
+    model.name = foundModel.name;
 
     const totalPrice = this.#calculateTotalPrice(foundModel.minPrice, result);
 
@@ -90,9 +90,8 @@ export class ReservationService {
     };
 
     const model = {
-      name: '모델',
+      name: '',
       id: colorFiltered.modelId,
-      value: '',
       imageURL: colorFiltered.imageURL,
     };
     result.push({ name: '외장재 색상', value: colorFiltered.name });
@@ -130,5 +129,13 @@ export class ReservationService {
     result = result.filter((each) => each.value);
 
     return { model, user, result };
+  }
+
+  async getReservationReceipt(id: string) {
+    return await this.prisma.reservationReceipt.findFirst({
+      where: {
+        reservationId: id,
+      },
+    });
   }
 }
