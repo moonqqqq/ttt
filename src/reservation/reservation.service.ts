@@ -56,9 +56,15 @@ export class ReservationService {
   #createReservationReceipt(reservation) {
     const data = reservation.data;
 
-    const colorFiltered = data.modelColors.filter(
+    let colorFiltered = data.modelColors.filter(
       (each) => each?.isSelected == true,
     )[0];
+
+    if (!colorFiltered) {
+      colorFiltered = data.modelColors.filter(
+        (each) => each?.isDefault == true,
+      )[0];
+    }
 
     const floorFiltered = data.modelFloorOptions.filter(
       (each) => each?.isSelected == true,
