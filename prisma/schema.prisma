@@ -124,6 +124,9 @@ model OptionDetail {
   price           Int
   isDefault       Boolean   @default(false)
   isFixed       Boolean     @default(false)
+  meshName      String      @default("")
+  groupName      String     @default("")
+  fileURL         String?
   
   modelSecondOptionIdSubstitude    String    @default("") // admin.js/relation can not find "ModelSecondOptionId". so manually added for admin feature
   ModelSecondOptionId     String
@@ -163,6 +166,9 @@ model KitchenOptionDetail {
   price           Int
   isDefault       Boolean   @default(false)
   isFixed       Boolean     @default(false)
+  meshName      String        @default("")
+  groupName      String       @default("")
+  fileURL         String?
   
   modelKitchenOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelKitchenOptionId". so manually added for admin feature
   modelKitchenOptionId     String
