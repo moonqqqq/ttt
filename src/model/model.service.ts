@@ -45,13 +45,15 @@ export class ModelService {
     return result;
   }
 
-  async getModelsForDefault() {
+  async getModelsForDefault(language: LANGUAGE_TYPE = LANGUAGE.KO) {
     const result = await this.prisma.model.findMany({
       select: {
         id: true,
         representativeImageURL: true,
         name: true,
+        nameKO: true,
         purpose: true,
+        purposeKO: true,
         minPrice: true,
       },
       orderBy: {
@@ -59,9 +61,21 @@ export class ModelService {
       },
     });
 
-    result.forEach((each) => {
-      (each as any).minPrice = `${each.minPrice.toLocaleString('ko-KR')}원~`;
-    });
+    if (language === LANGUAGE.KO) {
+      result.forEach((each) => {
+        each.name = each.nameKO;
+        (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
+        each.purpose = each.purposeKO;
+      });
+    }
+
+    if (language === LANGUAGE.EN) {
+      result.forEach((each) => {
+        each.name = each.name;
+        (each as any).minPrice = `TBD`;
+        each.purpose = each.purpose;
+      });
+    }
 
     return result;
   }

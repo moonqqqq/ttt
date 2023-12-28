@@ -31,8 +31,8 @@ export class ModelController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_5] Get model list for default list' })
   // @ApiOkListResponse(GetModelResDTO)
-  async getModelsDefault() {
-    const models = await this.modelService.getModelsForDefault();
+  async getModelsDefault(@Headers('language') language: LANGUAGE_TYPE) {
+    const models = await this.modelService.getModelsForDefault(language);
     return ResWrapper.list(models);
   }
 
