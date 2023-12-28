@@ -147,6 +147,7 @@ export class ModelService {
             order: true,
             price: true,
             isDefault: true,
+            threeDFileURL: true,
             modelSecondOptions: {
               select: {
                 name: true,

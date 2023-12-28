@@ -98,7 +98,8 @@ model ModelFloorOption {
   isDefault       Boolean     @default(false)
   isFixed       Boolean     @default(false)
   modelSecondOptions     ModelSecondOption[]
-  ModelKitchenTypes     ModelKitchenType[]         
+  ModelKitchenTypes     ModelKitchenType[]  
+  threeDFileURL         String?       
 
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
