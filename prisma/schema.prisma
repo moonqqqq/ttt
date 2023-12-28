@@ -55,6 +55,7 @@ model Model {
   order     Int   @default(0)
   representativeImageURL  String?
   heroImageURL  String?
+  threeDFileURL         String?
   name            String
   nameKO            String  @default("")
   description     String   @default("")
