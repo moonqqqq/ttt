@@ -6,7 +6,7 @@ import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
 export class ModelService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getModelsForNavigation() {
+  async getModelsForNavigation(language: LANGUAGE_TYPE = LANGUAGE.KO) {
     const result = await this.prisma.model.findMany({
       include: {
         modelColors: {},
@@ -16,11 +16,32 @@ export class ModelService {
       },
     });
 
-    result.forEach((each) => {
-      each.size += '평';
-      each.purpose[0] += '용';
-      (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
-    });
+    if (language === LANGUAGE.KO) {
+      result.forEach((each) => {
+        each.name = each.nameKO;
+        each.description = each.descriptionKO;
+        (each as any).minPrice = 'TBD';
+        each.insulation = each.insulationKO;
+        each.structure = each.structureKO;
+        each.windows = each.windowsKO;
+        each.furniture = each.furnitureKO;
+        each.purpose = each.purposeKO;
+        each.purposeDetail = each.purposeDetailKO;
+      });
+
+      result.forEach((each) => {
+        each.size += '평';
+        each.purpose[0] += '용';
+        (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
+      });
+    }
+    if ((language = LANGUAGE.EN)) {
+      result.forEach((each) => {
+        each.size = Math.floor(Number(each.size) * 3.3) + '㎡';
+        (each as any).minPrice = `TBD`;
+      });
+    }
+
     return result;
   }
 

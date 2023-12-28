@@ -22,8 +22,8 @@ export class ModelController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_1] Get model list for Navigation' })
   // @ApiOkListResponse(GetModelResDTO)
-  async getModels() {
-    const models = await this.modelService.getModelsForNavigation();
+  async getModels(@Headers('language') language: LANGUAGE_TYPE) {
+    const models = await this.modelService.getModelsForNavigation(language);
     return ResWrapper.list(models);
   }
 
