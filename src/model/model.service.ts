@@ -20,7 +20,7 @@ export class ModelService {
       result.forEach((each) => {
         each.name = each.nameKO;
         each.description = each.descriptionKO;
-        (each as any).minPrice = 'TBD';
+        (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
         each.insulation = each.insulationKO;
         each.structure = each.structureKO;
         each.windows = each.windowsKO;
@@ -32,10 +32,10 @@ export class ModelService {
       result.forEach((each) => {
         each.size += '평';
         each.purpose[0] += '용';
-        (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
       });
     }
-    if ((language = LANGUAGE.EN)) {
+
+    if (language === LANGUAGE.EN) {
       result.forEach((each) => {
         each.size = Math.floor(Number(each.size) * 3.3) + '㎡';
         (each as any).minPrice = `TBD`;

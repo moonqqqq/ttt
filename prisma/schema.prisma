@@ -34,6 +34,7 @@ model Portfolio {
   id              String @id @default(uuid())
   order     Int   @default(0)
   location        String
+  locationKO        String?
   model           String
   size            Int
   images          String[]

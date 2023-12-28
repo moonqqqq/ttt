@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  Headers,
 } from '@nestjs/common';
 import { PortfolioService } from './portfolio.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -24,6 +25,7 @@ import {
   UpdatePortfolioResDTO,
 } from './dtos/update-portfolio.dto';
 import { IdParamDTO } from '../shared/dtos/id-param.dto';
+import { LANGUAGE_TYPE } from '../shared/constants/language';
 
 @ApiTags(`${API_ENDPOINT.PORTFOLIO}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.PORTFOLIO}`)
@@ -34,8 +36,11 @@ export class PortfolioController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_4] Get portfolio list' })
   // @ApiOkListResponse(GetPortfolioResDTO)
-  async getPortfolio(@Query() { size }: GetPortfolioReqDTO) {
-    const result = await this.portfolioService.getPortfolios(size);
+  async getPortfolio(
+    @Headers('language') language: LANGUAGE_TYPE,
+    @Query() { size }: GetPortfolioReqDTO,
+  ) {
+    const result = await this.portfolioService.getPortfolios(language, size);
     return ResWrapper.list(result);
   }
 
