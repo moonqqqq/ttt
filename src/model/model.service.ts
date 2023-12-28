@@ -101,7 +101,7 @@ export class ModelService {
     });
   }
 
-  async getModelDetail(id: string) {
+  async getModelDetail(id: string, language: LANGUAGE_TYPE = LANGUAGE.KO) {
     const result = await this.prisma.model.findFirst({
       where: {
         id,
@@ -123,7 +123,22 @@ export class ModelService {
       },
     });
 
-    (result as any).minPrice = `₩${result.minPrice.toLocaleString('ko-KR')}~`;
+    if (language === LANGUAGE.KO) {
+      result.name = result.nameKO;
+      result.description = result.descriptionKO;
+      (result as any).minPrice = `₩${result.minPrice.toLocaleString('ko-KR')}~`;
+      result.insulation = result.insulationKO;
+      result.structure = result.structureKO;
+      result.windows = result.windowsKO;
+      result.furniture = result.furnitureKO;
+      result.purpose = result.purposeKO;
+      result.purposeDetail = result.purposeDetailKO;
+      result.size = result.size + '평형';
+    }
+    if (language === LANGUAGE.EN) {
+      (result as any).minPrice = `TBD`;
+      result.size = Math.floor(Number(result.size) * 3.3) + '㎡';
+    }
     return result;
   }
 

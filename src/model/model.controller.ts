@@ -40,8 +40,11 @@ export class ModelController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: '[API_ENDPOINT_6] Get model detail' })
   // @ApiOkListResponse(GetModelResDTO)
-  async getModelDetail(@Param() { id }: IdParamDTO) {
-    const model = await this.modelService.getModelDetail(id);
+  async getModelDetail(
+    @Headers('language') language: LANGUAGE_TYPE,
+    @Param() { id }: IdParamDTO,
+  ) {
+    const model = await this.modelService.getModelDetail(id, language);
     return ResWrapper.single(model);
   }
 
