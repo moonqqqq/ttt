@@ -124,7 +124,7 @@ export class ModelService {
     });
 
     if (language === LANGUAGE.KO) {
-      result.name = result.nameKO;
+      // result.name = result.nameKO;
       result.description = result.descriptionKO;
       (result as any).minPrice = `₩${result.minPrice.toLocaleString('ko-KR')}~`;
       result.insulation = result.insulationKO;
