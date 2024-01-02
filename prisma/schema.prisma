@@ -142,7 +142,8 @@ model ModelKitchenType {
   order           Int         @default(0)
   name            String
   nameKO            String      @default("")
-  options   ModelKitchenOption[]            
+  options   ModelKitchenOption[]      
+  meshName      String      @default("")      
   
   modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
   modelFloorOptionId     String
