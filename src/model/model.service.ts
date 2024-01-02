@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
 import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class ModelService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly emailService: EmailService,
+  ) {}
 
   async getModelsForNavigation(language: LANGUAGE_TYPE = LANGUAGE.KO) {
+    await this.emailService.sendReceiptEmail('heal@hyperhire.in');
     const result = await this.prisma.model.findMany({
       include: {
         modelColors: {},
