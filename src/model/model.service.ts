@@ -31,7 +31,6 @@ export class ModelService {
 
       result.forEach((each) => {
         each.size += '평';
-        each.purpose[0] += '용';
       });
     }
 
