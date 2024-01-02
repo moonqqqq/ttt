@@ -249,11 +249,15 @@ function translateToKO(result) {
     });
     if (each.ModelKitchenTypes && each.ModelKitchenTypes.length > 0) {
       each.ModelKitchenTypes.forEach((kitchenType) => {
-        kitchenType.name == kitchenType.nameKO;
+        kitchenType.name = kitchenType.nameKO;
         delete kitchenType.nameKO;
         kitchenType.options.forEach((kitchenOption) => {
           kitchenOption.name = kitchenOption.nameKO;
           delete kitchenOption.nameKO;
+          kitchenOption.optionDetails.forEach((detail) => {
+            detail.name = detail.nameKO;
+            delete detail.nameKO;
+          });
         });
       });
     }
