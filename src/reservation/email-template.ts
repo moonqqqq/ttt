@@ -28,6 +28,7 @@ export function testTemplate(receipt: ReservationReceipt, model) {
     </head>
     
     <body style="padding: 0; margin: 0; font-family: 'Apple SD Gothic Neo';">
+        <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
         <header style="background: #000; align-items: center; padding-top: 32px; padding-bottom: 12px; text-align: center; justify-content: center;">
             <div class="links" style="margin-left: auto; margin-right: auto; margin-bottom: 16px;">
                 <span class="link-item" style="display: inline-block;">
@@ -38,10 +39,10 @@ export function testTemplate(receipt: ReservationReceipt, model) {
             </div>
         </header>
         <main style="margin: 40px 60px; max-width: 600px;">
-            <h1 class="heading" style="font-family: Pretendard; font-style: normal; font-weight: 300; margin-top: 52px; line-height: 130%; text-align: center;">축하합니다. <br>${userName}님의 ${modelName}모델이 완성되었습니다.
-            </h1>
+            <p class="heading" style="font-family: 'Apple SD Gothic Neo'; font-style: normal; font-weight: 300; margin-top: 52px; line-height: 130%; text-align: center; font-size: 40px;">축하합니다. <br>${userName}님의 ${modelName}모델이 완성되었습니다.
+            </p>
     
-            <p style="text-align: center; font-family: Pretendard; font-style: normal; font-weight: 300; font-size: 16px;">${email} 로 견적서를 보냈습니다.</p>
+            <p style="text-align: center; font-family: 'Apple SD Gothic Neo'; font-style: normal; font-weight: 300; font-size: 16px;">${email} 로 견적서를 보냈습니다.</p>
     
             <div style="text-align: center;">
                 <img height="273" width: 600px; 
