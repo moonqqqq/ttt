@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class ReservationService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly emailService: EmailService,
+  ) {}
 
   async createReservation(body) {
     const reservation = await this.prisma.reservation.create({
@@ -29,7 +33,7 @@ export class ReservationService {
       options[item.name] = item.value;
     });
 
-    await this.prisma.reservationReceipt.create({
+    const receipt = await this.prisma.reservationReceipt.create({
       data: {
         reservationId: reservation.id,
         user,
@@ -38,6 +42,8 @@ export class ReservationService {
         totalPrice,
       },
     });
+
+    await this.emailService.sendReceiptEmail(receipt, model as any);
 
     return reservation;
   }

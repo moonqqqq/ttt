@@ -2,6 +2,8 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Transporter, createTransport } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import { testTemplate } from './email-template';
+import { Model, ReservationReceipt } from '@prisma/client';
 
 @Injectable()
 export class EmailService {
@@ -9,13 +11,9 @@ export class EmailService {
   constructor(private configService: ConfigService) {
     this.transport = createTransport({
       host: configService.get('NODEMAILER_HOST'),
-      secure: true,
-      tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false,
-      },
+      secure: false,
       requireTLS: true,
-      port: 465,
+      port: configService.get('NODEMAILER_PORT'),
       debug: true,
       auth: {
         user: configService.get('NODEMAILER_USER'),
@@ -24,13 +22,14 @@ export class EmailService {
     });
   }
 
-  async sendReceiptEmail(email: string) {
+  async sendReceiptEmail(receipt: ReservationReceipt, model: Model) {
     const mailOptions = {
       from: this.configService.get('NODEMAILER_SENDER'),
-      to: email,
-      subject: 'subject',
-      html: ``,
+      to: (receipt.user as any).email,
+      subject: 'Wavyroom 웨이비룸',
+      html: testTemplate(receipt, model),
     };
+
     await this.sendMail(mailOptions);
   }
 
@@ -39,7 +38,7 @@ export class EmailService {
     retryCount: number = 0,
   ) {
     if (retryCount > 2) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException('error on sending email');
     }
     try {
       await this.transport.sendMail(mailOptions);
