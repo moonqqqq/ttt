@@ -138,7 +138,13 @@ export class ReservationService {
         }),
       );
     }
-    result = result.filter((each) => each.value);
+    result = result.filter((each) => {
+      if (Array.isArray(each.value)) {
+        if (each.value.length > 0) return true;
+      } else {
+        return each.value ? true : false;
+      }
+    });
 
     return { model, user, result };
   }
