@@ -4,6 +4,7 @@ import { Transporter, createTransport } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import { testTemplate } from './email-template';
 import { Model, ReservationReceipt } from '@prisma/client';
+import { LANGUAGE_TYPE } from '../shared/constants/language';
 
 @Injectable()
 export class EmailService {
@@ -11,9 +12,13 @@ export class EmailService {
   constructor(private configService: ConfigService) {
     this.transport = createTransport({
       host: configService.get('NODEMAILER_HOST'),
-      secure: false,
+      secure: true,
+      tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false,
+      },
       requireTLS: true,
-      port: configService.get('NODEMAILER_PORT'),
+      port: 465,
       debug: true,
       auth: {
         user: configService.get('NODEMAILER_USER'),
@@ -22,12 +27,16 @@ export class EmailService {
     });
   }
 
-  async sendReceiptEmail(receipt: ReservationReceipt, model: Model) {
+  async sendReceiptEmail(
+    receipt: ReservationReceipt,
+    model: Model,
+    language?: LANGUAGE_TYPE,
+  ) {
     const mailOptions = {
       from: this.configService.get('NODEMAILER_SENDER'),
       to: (receipt.user as any).email,
       subject: 'Wavyroom 웨이비룸',
-      html: testTemplate(receipt, model),
+      html: testTemplate(receipt, model, language),
     };
 
     await this.sendMail(mailOptions);

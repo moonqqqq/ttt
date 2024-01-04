@@ -1,11 +1,25 @@
 import { ReservationReceipt } from '@prisma/client';
+import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
 
-export function testTemplate(receipt: ReservationReceipt, model) {
+export function testTemplate(
+  receipt: ReservationReceipt,
+  model,
+  language: LANGUAGE_TYPE = LANGUAGE.KO,
+) {
   const userName = (receipt.user as any).name;
   const modelName = model.name;
-  const modelImageURL = `https://spacewavy.s3.ap-northeast-2.amazonaws.com/${model.imageURL}`;
   const email = (receipt.user as any)?.email;
   const options = receipt.options;
+  const title =
+    language == LANGUAGE.KO
+      ? `축하합니다. <br>${userName}님의 ${modelName}모델이 완성되었습니다.`
+      : `Congratulations!<br>${userName}’s ${modelName} model has been completed.`;
+
+  const modelImageURL = `https://spacewavy.s3.ap-northeast-2.amazonaws.com/${model.imageURL}`;
+  const subtitle =
+    language == LANGUAGE.KO
+      ? `${email} 로 견적서를 보냈습니다.`
+      : `A quotation was sent to ${email}.`;
 
   let optionHTML = '';
   for (const [key, value] of Object.entries(options)) {
@@ -16,7 +30,13 @@ export function testTemplate(receipt: ReservationReceipt, model) {
             </div>`;
   }
 
-  const totalPrice = receipt.totalPrice;
+  //   const totalPrice = receipt.totalPrice;
+  const totalPrice =
+    language == LANGUAGE.KO
+      ? `${receipt.totalPrice.toLocaleString('ko-KR')}원`
+      : `${receipt.totalPrice.toLocaleString('ko-KR')}₩`;
+  const totalPriceKey =
+    language == LANGUAGE.KO ? `예상 견적` : 'Estimated quote';
 
   return `<!DOCTYPE html>
     <html lang="en" style="padding: 0; margin: 0; font-family: 'Apple SD Gothic Neo';">
@@ -39,10 +59,10 @@ export function testTemplate(receipt: ReservationReceipt, model) {
             </div>
         </header>
         <main style="margin: 40px 60px; max-width: 600px;">
-            <p class="heading" style="font-family: 'Apple SD Gothic Neo'; font-style: normal; font-weight: 300; margin-top: 52px; line-height: 130%; text-align: center; font-size: 40px;">축하합니다. <br>${userName}님의 ${modelName}모델이 완성되었습니다.
+            <p class="heading" style="font-family: 'Apple SD Gothic Neo'; font-style: normal; font-weight: 300; margin-top: 52px; line-height: 130%; text-align: center; font-size: 40px;">${title}
             </p>
     
-            <p style="text-align: center; font-family: 'Apple SD Gothic Neo'; font-style: normal; font-weight: 300; font-size: 16px;">${email} 로 견적서를 보냈습니다.</p>
+            <p style="text-align: center; font-family: 'Apple SD Gothic Neo'; font-style: normal; font-weight: 300; font-size: 16px;">${subtitle}</p>
     
             <div style="text-align: center;">
                 <img height="273" width: 600px; 
@@ -58,10 +78,8 @@ export function testTemplate(receipt: ReservationReceipt, model) {
             <br><br/>
             <hr />
             <div style="display: flex; justify-content: space-between;">
-                <p style="line-height: 24px; font-weight: 100; margin-right: auto;">예상 견적</p>
-                <p style="line-height: 24px; font-weight: 100;">${totalPrice.toLocaleString(
-                  'ko-KR',
-                )}원</p>
+                <p style="line-height: 24px; font-weight: 100; margin-right: auto;">${totalPriceKey}</p>
+                <p style="line-height: 24px; font-weight: 100;">${totalPrice}</p>
             </div>
     
             </p>

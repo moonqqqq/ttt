@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Headers,
   Param,
   Post,
 } from '@nestjs/common';
@@ -17,6 +18,7 @@ import {
 import ResWrapper from '../shared/utils/res-wrapper.static';
 import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { IdParamDTO } from '../shared/dtos/id-param.dto';
+import { LANGUAGE_TYPE } from '../shared/constants/language';
 
 @ApiTags(`${API_ENDPOINT.RESERVATION}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.RESERVATION}`)
@@ -27,9 +29,14 @@ export class ReservationController {
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: '[API_ENDPOINT_8] Create reservation' })
   @ApiCreatedDataWrapResponse(CreateReservationResDTO)
-  async createReservation(@Body() body: CreateReservationReqDTO) {
-    const createdReservation =
-      await this.reservationService.createReservation(body);
+  async createReservation(
+    @Headers('language') language: LANGUAGE_TYPE,
+    @Body() body: CreateReservationReqDTO,
+  ) {
+    const createdReservation = await this.reservationService.createReservation(
+      body,
+      language,
+    );
     return ResWrapper.single(createdReservation);
   }
 

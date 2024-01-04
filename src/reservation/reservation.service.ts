@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
 import { EmailService } from './email.service';
+import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
 
 @Injectable()
 export class ReservationService {
@@ -9,11 +10,15 @@ export class ReservationService {
     private readonly emailService: EmailService,
   ) {}
 
-  async createReservation(body) {
+  async createReservation(body, language: LANGUAGE_TYPE) {
     const reservation = await this.prisma.reservation.create({
       data: body,
     });
-    const { model: model, user, result } = this.#createReservationReceipt(body);
+    const {
+      model: model,
+      user,
+      result,
+    } = this.#createReservationReceipt(body, language);
     const foundModel = await this.prisma.model.findFirst({
       where: {
         id: model.id,
@@ -43,7 +48,7 @@ export class ReservationService {
       },
     });
 
-    await this.emailService.sendReceiptEmail(receipt, model as any);
+    await this.emailService.sendReceiptEmail(receipt, model as any, language);
 
     return reservation;
   }
@@ -59,7 +64,10 @@ export class ReservationService {
     return totalPrice;
   }
 
-  #createReservationReceipt(reservation) {
+  #createReservationReceipt(
+    reservation,
+    language: LANGUAGE_TYPE = LANGUAGE.KO,
+  ) {
     const data = reservation.data;
 
     let colorFiltered = data.modelColors.filter(
@@ -106,9 +114,12 @@ export class ReservationService {
       id: colorFiltered.modelId,
       imageURL: colorFiltered.imageURLNBG || colorFiltered.imageURL,
     };
-    result.push({ name: '외장재 색상', value: colorFiltered.name });
+    const exterialColor =
+      language == LANGUAGE.KO ? '외장재 색상' : 'Exterior material type';
+    result.push({ name: `${exterialColor}`, value: colorFiltered.name });
+    const floorType = language == LANGUAGE.KO ? '층수 형태' : 'Floor type';
     result.push({
-      name: '층수 형태',
+      name: `${floorType}`,
       value: floorFiltered.name,
       price: floorFiltered.price,
     });
