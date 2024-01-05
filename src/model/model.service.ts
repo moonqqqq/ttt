@@ -18,7 +18,7 @@ export class ModelService {
 
     if (language === LANGUAGE.KO) {
       result.forEach((each) => {
-        each.name = each.nameKO;
+        // each.name = each.nameKO;
         each.description = each.descriptionKO;
         (each as any).minPrice = `₩${each.minPrice.toLocaleString('ko-KR')}~`;
         each.insulation = each.insulationKO;
