@@ -67,4 +67,13 @@ export class PortfolioController {
     );
     return ResWrapper.single(updatedPortfolio);
   }
+
+  @Get('main')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[API_ENDPOINT_11] Get portfolio list for main' })
+  // @ApiOkListResponse(GetPortfolioResDTO)
+  async getPortfolioMain(@Headers('language') language: LANGUAGE_TYPE) {
+    const result = await this.portfolioService.getPortfolioMain(language);
+    return ResWrapper.list(result);
+  }
 }

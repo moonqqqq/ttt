@@ -23,6 +23,37 @@ export class PortfolioService {
       return { from: 31 };
   }
 
+  async getPortfolioMain(language: LANGUAGE_TYPE = LANGUAGE.KO) {
+    const isKO = language === LANGUAGE.KO;
+    return [
+      {
+        modelName: 'Evo',
+        imageURL: 'carosolImage-1.png',
+        purpose: isKO ? '숙박용' : 'Accomodation',
+      },
+      {
+        modelName: 'Max',
+        imageURL: 'carosolImage-2.png',
+        purpose: isKO ? '주거용' : 'Residential',
+      },
+      {
+        modelName: 'Studio',
+        imageURL: 'carosolImage-3.png',
+        purpose: isKO ? '주거용' : 'Residential',
+      },
+      {
+        modelName: 'Mini',
+        imageURL: 'carosolImage-4.png',
+        purpose: isKO ? '다용도용' : 'Murtipurpose',
+      },
+      {
+        modelName: 'Nova',
+        imageURL: 'carosolImage-5.png',
+        purpose: isKO ? '주거, 숙박용' : 'Residential, Accomodation',
+      },
+    ];
+  }
+
   async getPortfolios(
     language: LANGUAGE_TYPE = LANGUAGE.KO,
     size?: PORTFOLIO_SIZE_QUERY_TYPE,
