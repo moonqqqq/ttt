@@ -54,7 +54,7 @@ model Model {
   id              String @id @default(uuid())
   order     Int   @default(0)
   representativeImageURL  String?
-  representativeBackgroundImageURL  String?
+  representativeNoBGImageURL  String?
   heroImageURL  String?
   mobileHeroImageURL  String?
   threeDFileURL         String?

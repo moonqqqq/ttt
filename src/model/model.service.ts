@@ -49,7 +49,7 @@ export class ModelService {
       select: {
         id: true,
         representativeImageURL: true,
-        representativeBackgroundImageURL: true,
+        representativeNoBGImageURL: true,
         name: true,
         nameKO: true,
         purpose: true,
