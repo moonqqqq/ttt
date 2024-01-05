@@ -12,13 +12,9 @@ export class EmailService {
   constructor(private configService: ConfigService) {
     this.transport = createTransport({
       host: configService.get('NODEMAILER_HOST'),
-      secure: true,
-      tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false,
-      },
+      secure: false,
       requireTLS: true,
-      port: 465,
+      port: configService.get('NODEMAILER_PORT'),
       debug: true,
       auth: {
         user: configService.get('NODEMAILER_USER'),
@@ -33,7 +29,7 @@ export class EmailService {
     language?: LANGUAGE_TYPE,
   ) {
     const mailOptions = {
-      from: this.configService.get('NODEMAILER_SENDER'),
+      from: `Wavyroom <${this.configService.get('NODEMAILER_SENDER')}>`,
       to: (receipt.user as any).email,
       subject: 'Wavyroom 웨이비룸',
       html: testTemplate(receipt, model, language),
