@@ -190,6 +190,7 @@ model ModelColor {
   colorId   String
   name      String
   nameKO            String      @default("")
+  meshNames       String[]
   isDefault       Boolean   @default(false)
   isFixed       Boolean     @default(false)
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
