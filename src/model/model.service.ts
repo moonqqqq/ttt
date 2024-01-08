@@ -198,6 +198,7 @@ export class ModelService {
                     isDefault: true,
                     groupName: true,
                     meshName: true,
+                    blockMeshNames: true,
                     fileURL: true,
                   },
                   orderBy: {
@@ -217,6 +218,7 @@ export class ModelService {
                 isDefault: true,
                 order: true,
                 meshName: true,
+                blockMeshNames: true,
                 options: {
                   select: {
                     name: true,
@@ -231,6 +233,7 @@ export class ModelService {
                         isDefault: true,
                         groupName: true,
                         meshName: true,
+                        blockMeshNames: true,
                         fileURL: true,
                       },
                     },

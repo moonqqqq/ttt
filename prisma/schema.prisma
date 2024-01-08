@@ -130,6 +130,7 @@ model OptionDetail {
   isDefault       Boolean   @default(false)
   isFixed       Boolean     @default(false)
   meshName      String      @default("")
+  blockMeshNames   String[]
   groupName      String     @default("")
   fileURL         String?
   
@@ -146,7 +147,8 @@ model ModelKitchenType {
   price           Int           @default(0)
   isDefault       Boolean   @default(false)
   options   ModelKitchenOption[]      
-  meshName      String      @default("")      
+  meshName      String      @default("")    
+  blockMeshNames   String[]  
   
   modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
   modelFloorOptionId     String
@@ -175,6 +177,7 @@ model KitchenOptionDetail {
   isDefault       Boolean   @default(false)
   isFixed       Boolean     @default(false)
   meshName      String        @default("")
+  blockMeshNames   String[]
   groupName      String       @default("")
   fileURL         String?
   
@@ -192,6 +195,7 @@ model ModelColor {
   name      String
   nameKO            String      @default("")
   meshNames       String[]
+  blockMeshNames   String[]
   isDefault       Boolean   @default(false)
   isFixed       Boolean     @default(false)
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
