@@ -250,3 +250,13 @@ model ReservationReceipt {
   totalPrice      Int
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
 }
+
+model MainPagePortfolio {
+  id              String        @id @default(uuid())
+  order     Int   @default(0)
+  imageURL       String?
+  modelName           String
+  purpose         String[]
+  purposeKO         String[]
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+}
