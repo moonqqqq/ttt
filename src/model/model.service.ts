@@ -214,6 +214,7 @@ export class ModelService {
                 name: true,
                 nameKO: true,
                 price: true,
+                isDefault: true,
                 order: true,
                 meshName: true,
                 options: {
