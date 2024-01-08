@@ -213,6 +213,7 @@ export class ModelService {
               select: {
                 name: true,
                 nameKO: true,
+                price: true,
                 order: true,
                 meshName: true,
                 options: {

@@ -143,6 +143,7 @@ model ModelKitchenType {
   order           Int         @default(0)
   name            String
   nameKO            String      @default("")
+  price           Int           @default(0)
   options   ModelKitchenOption[]      
   meshName      String      @default("")      
   
