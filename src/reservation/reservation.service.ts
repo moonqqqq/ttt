@@ -20,7 +20,18 @@ export class ReservationService {
       user,
       result,
       resultOpposite,
-    } = this.#createReservationReceipt(body, LANGUAGE.EN);
+    } = this.#createReservationReceipt(body, language);
+
+    let resultKO;
+    let resultEN;
+    if (language == LANGUAGE.KO) {
+      resultKO = result;
+      resultEN = resultOpposite;
+    }
+    if (language == LANGUAGE.EN) {
+      resultKO = resultOpposite;
+      resultEN = result;
+    }
 
     const foundModel = await this.prisma.model.findFirst({
       where: {
@@ -36,34 +47,23 @@ export class ReservationService {
 
     const totalPrice = this.#calculateTotalPrice(foundModel.minPrice, result);
 
-    const options = {};
+    const optionsEN = {};
     const optionsKO = {};
 
     // TODO: make below two foreach to one for loop
-    if (language === LANGUAGE.KO) {
-      result.forEach((item) => {
-        optionsKO[item.name] = item.value;
-      });
-      resultOpposite.forEach((item) => {
-        options[extractStringBeforeFirstParenthesis(item.name)] = item.value;
-      });
-    }
-
-    if (language === LANGUAGE.EN) {
-      result.forEach((item) => {
-        options[item.name] = item.value;
-      });
-      resultOpposite.forEach((item) => {
-        optionsKO[extractStringBeforeFirstParenthesis(item.name)] = item.value;
-      });
-    }
+    resultKO.forEach((item) => {
+      optionsKO[item.name] = item.value;
+    });
+    resultEN.forEach((item) => {
+      optionsEN[extractStringBeforeFirstParenthesis(item.name)] = item.value;
+    });
 
     const receipt = await this.prisma.reservationReceipt.create({
       data: {
         reservationId: reservation.id,
         user,
         model,
-        options,
+        options: optionsEN,
         optionsKO,
         totalPrice,
       },
@@ -137,18 +137,18 @@ export class ReservationService {
       imageURL: colorFiltered.imageURLNBG || colorFiltered.imageURL,
     };
     const exterialColor =
-      language !== LANGUAGE.KO ? 'Exterior material type' : '외장재 색상';
+      language == LANGUAGE.KO ? '외장재 색상' : 'Exterior material type';
     const exterialColorOpposite =
-      language == LANGUAGE.EN ? '외장재 색상' : 'Exterior material type';
+      language == LANGUAGE.KO ? 'Exterior material type' : '외장재 색상';
     result.push({ name: `${exterialColor}`, value: colorFiltered.name });
     resultOpposite.push({
       name: `${exterialColorOpposite}`,
       value: colorFiltered.nameKO,
     });
 
-    const floorType = language !== LANGUAGE.KO ? 'Floor type' : '층수 형태';
+    const floorType = language == LANGUAGE.KO ? '층수 형태' : 'Floor type';
     const floorTypeOpposite =
-      language == LANGUAGE.EN ? '층수 형태' : 'Floor type';
+      language == LANGUAGE.KO ? 'Floor type' : '층수 형태';
     result.push({
       name: `${floorType}`,
       value: floorFiltered.name,
