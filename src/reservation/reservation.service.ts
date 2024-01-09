@@ -51,10 +51,10 @@ export class ReservationService {
 
     if (language === LANGUAGE.EN) {
       result.forEach((item) => {
-        optionsKO[item.name] = item.value;
+        options[item.name] = item.value;
       });
       resultOpposite.forEach((item) => {
-        options[extractStringBeforeFirstParenthesis(item.name)] = item.value;
+        optionsKO[extractStringBeforeFirstParenthesis(item.name)] = item.value;
       });
     }
 
@@ -137,18 +137,18 @@ export class ReservationService {
       imageURL: colorFiltered.imageURLNBG || colorFiltered.imageURL,
     };
     const exterialColor =
-      language == LANGUAGE.KO ? 'Exterior material type' : '외장재 색상';
+      language !== LANGUAGE.KO ? 'Exterior material type' : '외장재 색상';
     const exterialColorOpposite =
-      language != LANGUAGE.EN ? '외장재 색상' : 'Exterior material type';
+      language == LANGUAGE.EN ? '외장재 색상' : 'Exterior material type';
     result.push({ name: `${exterialColor}`, value: colorFiltered.name });
     resultOpposite.push({
       name: `${exterialColorOpposite}`,
       value: colorFiltered.nameKO,
     });
 
-    const floorType = language == LANGUAGE.KO ? 'Floor type' : '층수 형태';
+    const floorType = language !== LANGUAGE.KO ? 'Floor type' : '층수 형태';
     const floorTypeOpposite =
-      language !== LANGUAGE.EN ? '층수 형태' : 'Floor type';
+      language == LANGUAGE.EN ? '층수 형태' : 'Floor type';
     result.push({
       name: `${floorType}`,
       value: floorFiltered.name,
