@@ -251,6 +251,7 @@ model ReservationReceipt {
   user            Json?
   model           Json?
   options           Json?
+  optionsKO           Json?
   totalPrice      Int
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
 }

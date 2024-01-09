@@ -18,7 +18,13 @@ export class ReservationService {
       model: model,
       user,
       result,
-    } = this.#createReservationReceipt(body, language);
+    } = this.#createReservationReceipt(body, LANGUAGE.EN);
+
+    const { result: resultKO } = this.#createReservationReceipt(
+      body,
+      LANGUAGE.KO,
+    );
+
     const foundModel = await this.prisma.model.findFirst({
       where: {
         id: model.id,
@@ -34,8 +40,13 @@ export class ReservationService {
     const totalPrice = this.#calculateTotalPrice(foundModel.minPrice, result);
 
     const options = {};
+    const optionsKO = {};
+    // TODO: make below two foreach to one for loop
     result.forEach((item) => {
       options[item.name] = item.value;
+    });
+    resultKO.forEach((item) => {
+      optionsKO[item.name] = item.value;
     });
 
     const receipt = await this.prisma.reservationReceipt.create({
@@ -44,6 +55,7 @@ export class ReservationService {
         user,
         model,
         options,
+        optionsKO,
         totalPrice,
       },
     });
