@@ -328,7 +328,7 @@ function deleteAfterFirstParenthesis(result) {
   return result;
 }
 
-function extractStringBeforeFirstParenthesis(inputString: string) {
+export function extractStringBeforeFirstParenthesis(inputString: string) {
   const indexOfFirstParenthesis = inputString.indexOf('(');
   if (indexOfFirstParenthesis !== -1) {
     return inputString.substring(0, indexOfFirstParenthesis).trim();

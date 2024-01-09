@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
 import { EmailService } from './email.service';
 import { LANGUAGE, LANGUAGE_TYPE } from '../shared/constants/language';
+import { extractStringBeforeFirstParenthesis } from '../model/model.service';
 
 @Injectable()
 export class ReservationService {
@@ -39,12 +40,23 @@ export class ReservationService {
     const optionsKO = {};
 
     // TODO: make below two foreach to one for loop
-    result.forEach((item) => {
-      options[item.name] = item.value;
-    });
-    resultOpposite.forEach((item) => {
-      optionsKO[item.name] = item.value;
-    });
+    if (language === LANGUAGE.KO) {
+      result.forEach((item) => {
+        optionsKO[item.name] = item.value;
+      });
+      resultOpposite.forEach((item) => {
+        options[extractStringBeforeFirstParenthesis(item.name)] = item.value;
+      });
+    }
+
+    if (language === LANGUAGE.EN) {
+      result.forEach((item) => {
+        optionsKO[item.name] = item.value;
+      });
+      resultOpposite.forEach((item) => {
+        options[extractStringBeforeFirstParenthesis(item.name)] = item.value;
+      });
+    }
 
     const receipt = await this.prisma.reservationReceipt.create({
       data: {
@@ -125,18 +137,18 @@ export class ReservationService {
       imageURL: colorFiltered.imageURLNBG || colorFiltered.imageURL,
     };
     const exterialColor =
-      language == LANGUAGE.KO ? '외장재 색상' : 'Exterior material type';
-    const exterialColorOpposite =
       language == LANGUAGE.KO ? 'Exterior material type' : '외장재 색상';
+    const exterialColorOpposite =
+      language != LANGUAGE.EN ? '외장재 색상' : 'Exterior material type';
     result.push({ name: `${exterialColor}`, value: colorFiltered.name });
     resultOpposite.push({
       name: `${exterialColorOpposite}`,
       value: colorFiltered.nameKO,
     });
 
-    const floorType = language == LANGUAGE.KO ? '층수 형태' : 'Floor type';
+    const floorType = language == LANGUAGE.KO ? 'Floor type' : '층수 형태';
     const floorTypeOpposite =
-      language == LANGUAGE.KO ? 'Floor type' : '층수 형태';
+      language !== LANGUAGE.EN ? '층수 형태' : 'Floor type';
     result.push({
       name: `${floorType}`,
       value: floorFiltered.name,
