@@ -18,12 +18,8 @@ export class ReservationService {
       model: model,
       user,
       result,
+      resultOpposite,
     } = this.#createReservationReceipt(body, LANGUAGE.EN);
-
-    const { result: resultKO } = this.#createReservationReceipt(
-      body,
-      LANGUAGE.KO,
-    );
 
     const foundModel = await this.prisma.model.findFirst({
       where: {
@@ -41,11 +37,12 @@ export class ReservationService {
 
     const options = {};
     const optionsKO = {};
+
     // TODO: make below two foreach to one for loop
     result.forEach((item) => {
       options[item.name] = item.value;
     });
-    resultKO.forEach((item) => {
+    resultOpposite.forEach((item) => {
       optionsKO[item.name] = item.value;
     });
 
@@ -114,6 +111,7 @@ export class ReservationService {
     });
 
     let result = [];
+    let resultOpposite = [];
 
     const user = {
       name: reservation.name,
@@ -128,11 +126,25 @@ export class ReservationService {
     };
     const exterialColor =
       language == LANGUAGE.KO ? '외장재 색상' : 'Exterior material type';
+    const exterialColorOpposite =
+      language == LANGUAGE.KO ? 'Exterior material type' : '외장재 색상';
     result.push({ name: `${exterialColor}`, value: colorFiltered.name });
+    resultOpposite.push({
+      name: `${exterialColorOpposite}`,
+      value: colorFiltered.nameKO,
+    });
+
     const floorType = language == LANGUAGE.KO ? '층수 형태' : 'Floor type';
+    const floorTypeOpposite =
+      language == LANGUAGE.KO ? 'Floor type' : '층수 형태';
     result.push({
       name: `${floorType}`,
       value: floorFiltered.name,
+      price: floorFiltered.price,
+    });
+    resultOpposite.push({
+      name: `${floorTypeOpposite}`,
+      value: floorFiltered.nameKO,
       price: floorFiltered.price,
     });
     result.push(
@@ -140,6 +152,18 @@ export class ReservationService {
         return {
           name: each.name,
           value: each.optionDetails.map((each) => each.name),
+          price: each.optionDetails.reduce(
+            (accumulator, each) => accumulator + each.price,
+            0,
+          ),
+        };
+      }),
+    );
+    resultOpposite.push(
+      ...secondOptionFiltered.map((each) => {
+        return {
+          name: each.nameKO,
+          value: each.optionDetails.map((each) => each.nameKO),
           price: each.optionDetails.reduce(
             (accumulator, each) => accumulator + each.price,
             0,
@@ -160,6 +184,18 @@ export class ReservationService {
           };
         }),
       );
+      resultOpposite.push(
+        ...kitchenFiltered?.options?.map((each) => {
+          return {
+            name: each.nameKO,
+            value: each.optionDetails.map((each) => each.nameKO),
+            price: each.optionDetails.reduce(
+              (accumulator, each) => accumulator + each.price,
+              0,
+            ),
+          };
+        }),
+      );
     }
     result = result.filter((each) => {
       if (Array.isArray(each.value)) {
@@ -168,8 +204,15 @@ export class ReservationService {
         return each.value ? true : false;
       }
     });
+    resultOpposite = resultOpposite.filter((each) => {
+      if (Array.isArray(each.value)) {
+        if (each.value.length > 0) return true;
+      } else {
+        return each.value ? true : false;
+      }
+    });
 
-    return { model, user, result };
+    return { model, user, result, resultOpposite };
   }
 
   async getReservationReceipt(id: string) {
