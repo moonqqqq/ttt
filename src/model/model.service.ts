@@ -260,30 +260,37 @@ export class ModelService {
 
 function translateToKO(result) {
   result.modelColors.forEach((each) => {
-    each.name = each.nameKO;
-    delete each.nameKO;
+    [each.name, each.nameKO] = [each.nameKO, each.name];
   });
   result.modelFloorOptions.forEach((each) => {
-    each.name = each.nameKO;
-    delete each.nameKO;
+    [each.name, each.nameKO] = [each.nameKO, each.name];
+
     each.modelSecondOptions.forEach((eachSecond) => {
-      eachSecond.name = eachSecond.nameKO;
-      delete eachSecond.nameKO;
+      [eachSecond.name, eachSecond.nameKO] = [
+        eachSecond.nameKO,
+        eachSecond.name,
+      ];
+
       eachSecond.optionDetails.forEach((eachDetail) => {
-        eachDetail.name = eachDetail.nameKO;
-        delete eachDetail.nameKO;
+        [eachDetail.name, eachDetail.nameKO] = [
+          eachDetail.nameKO,
+          eachDetail.name,
+        ];
       });
     });
     if (each.ModelKitchenTypes && each.ModelKitchenTypes.length > 0) {
       each.ModelKitchenTypes.forEach((kitchenType) => {
-        kitchenType.name = kitchenType.nameKO;
-        delete kitchenType.nameKO;
+        [kitchenType.name, kitchenType.nameKO] = [
+          kitchenType.nameKO,
+          kitchenType.name,
+        ];
         kitchenType.options.forEach((kitchenOption) => {
-          kitchenOption.name = kitchenOption.nameKO;
-          delete kitchenOption.nameKO;
+          [kitchenOption.name, kitchenOption.nameKO] = [
+            kitchenOption.nameKO,
+            kitchenOption.name,
+          ];
           kitchenOption.optionDetails.forEach((detail) => {
-            detail.name = detail.nameKO;
-            delete detail.nameKO;
+            [detail.name, detail.nameKO] = [detail.nameKO, detail.name];
           });
         });
       });
