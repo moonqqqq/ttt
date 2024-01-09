@@ -9,7 +9,7 @@ export function testTemplate(
   const userName = (receipt.user as any).name;
   const modelName = model.name;
   const email = (receipt.user as any)?.email;
-  const options = receipt.options;
+  const options = language == LANGUAGE.EN ? receipt.options : receipt.optionsKO;
   const title =
     language == LANGUAGE.KO
       ? `축하합니다. <br>${userName}님의 ${modelName}모델이 완성되었습니다.`
