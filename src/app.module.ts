@@ -20,6 +20,8 @@ import { ModelModule } from './model/model.module';
 import { UserModule } from './user/user.module';
 import { ReputationModule } from './reputation/reputation.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksService } from './shared/cron/task.service';
 
 @Module({
   imports: [
@@ -41,9 +43,10 @@ import { ReservationModule } from './reservation/reservation.module';
     UserModule,
     ReputationModule,
     ReservationModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TasksService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

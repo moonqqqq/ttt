@@ -106,6 +106,8 @@ model ModelFloorOption {
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
   Model Model @relation(fields: [modelId], references: [id])     
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model ModelSecondOption {
@@ -119,6 +121,9 @@ model ModelSecondOption {
   modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
   modelFloorOptionId     String
   ModelFloorOption ModelFloorOption @relation(fields: [modelFloorOptionId], references: [id])     
+
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model OptionDetail {
@@ -137,6 +142,8 @@ model OptionDetail {
   modelSecondOptionIdSubstitude    String    @default("") // admin.js/relation can not find "ModelSecondOptionId". so manually added for admin feature
   ModelSecondOptionId     String
   ModelSecondOption ModelSecondOption @relation(fields: [ModelSecondOptionId], references: [id])     
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model ModelKitchenType {
@@ -153,6 +160,9 @@ model ModelKitchenType {
   modelFloorOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelFloorOptionId". so manually added for admin feature
   modelFloorOptionId     String
   ModelFloorOption ModelFloorOption @relation(fields: [modelFloorOptionId], references: [id])     
+
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model ModelKitchenOption {
@@ -166,6 +176,9 @@ model ModelKitchenOption {
   modelKitchenTypeIdSubstitude    String    @default("") // admin.js/relation can not find "modelKitchenTypeId". so manually added for admin feature
   modelKitchenTypeId     String
   ModelKitchenType ModelKitchenType @relation(fields: [modelKitchenTypeId], references: [id])     
+
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model KitchenOptionDetail {
@@ -184,6 +197,9 @@ model KitchenOptionDetail {
   modelKitchenOptionIdSubstitude    String    @default("") // admin.js/relation can not find "modelKitchenOptionId". so manually added for admin feature
   modelKitchenOptionId     String
   ModelKitchenOption ModelKitchenOption @relation(fields: [modelKitchenOptionId], references: [id])     
+
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model ModelColor {
@@ -201,6 +217,9 @@ model ModelColor {
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
   Model Model @relation(fields: [modelId], references: [id])
+
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model ModelExample {
@@ -211,6 +230,9 @@ model ModelExample {
   modelIdSubstitude    String    @default("") // admin.js/relation can not find "modelId". so manually added for admin feature
   modelId     String
   Model Model @relation(fields: [modelId], references: [id])
+
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @db.Timestamptz(3)
 }
 
 model Admin {
