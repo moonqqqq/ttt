@@ -45,7 +45,11 @@ export class ReservationService {
     });
     model.name = foundModel.name;
 
-    const totalPrice = this.#calculateTotalPrice(foundModel.minPrice, result);
+    const floorOption = result.find(
+      (each) => each.name === '층수 형태' || each.name === 'Floor type',
+    );
+
+    const totalPrice = this.#calculateTotalPrice(floorOption.price, result);
 
     const optionsEN = {};
     const optionsKO = {};
