@@ -120,6 +120,7 @@ export class ReservationService {
         ? String(receipt.optionsKO['기타옵션'])
         : '',
       totalPrice: receipt.totalPrice,
+      createdAt: this.makeExcelStyleTimestamp(),
     };
 
     await this.prisma.reservationReceiptV2.create({
@@ -290,5 +291,32 @@ export class ReservationService {
         reservationId: id,
       },
     });
+  }
+
+  makeExcelStyleTimestamp() {
+    // Create a new Date object
+    const currentDate: Date = new Date();
+
+    // Get the individual components of the date
+    const day: number = currentDate.getDate();
+    const month: number = currentDate.getMonth() + 1; // Months are zero-based
+    const year: number = currentDate.getFullYear();
+    const hours: number = currentDate.getHours();
+    const minutes: number = currentDate.getMinutes();
+    const seconds: number = currentDate.getSeconds();
+
+    // Format the components as two-digit numbers
+    const formattedDay: string = day < 10 ? `0${day}` : `${day}`;
+    const formattedMonth: string = month < 10 ? `0${month}` : `${month}`;
+    const formattedHours: string = hours < 10 ? `0${hours}` : `${hours}`;
+    const formattedMinutes: string =
+      minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds: string =
+      seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    // Create the formatted timestamp string
+    const formattedTimestamp: string = `${year}/${formattedMonth}/${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+
+    return formattedTimestamp;
   }
 }

@@ -306,5 +306,5 @@ model ReservationReceiptV2 {
 	selectedKitchenAppliances	String?
 	additionalOptions		String?
 	totalPrice				Int?
-	createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+	createdAt       String?
 }
