@@ -20,6 +20,7 @@ export class ReservationService {
       user,
       result,
       resultOpposite,
+      kitchenFiltered,
     } = this.#createReservationReceipt(body, language);
 
     let resultKO;
@@ -56,10 +57,23 @@ export class ReservationService {
 
     // TODO: make below two foreach to one for loop
     resultKO.forEach((item) => {
-      optionsKO[item.name] = item.value;
+      if (!item.value.includes('미선택')) {
+        optionsKO[item.name] = optionsKO[item.name]
+          ? [...optionsKO[item.name], ...item.value]
+          : item.value;
+      }
     });
     resultEN.forEach((item) => {
-      optionsEN[extractStringBeforeFirstParenthesis(item.name)] = item.value;
+      if (!item.value.includes('Not Selected')) {
+        optionsEN[extractStringBeforeFirstParenthesis(item.name)] = optionsEN[
+          extractStringBeforeFirstParenthesis(item.name)
+        ]
+          ? [
+              ...optionsEN[extractStringBeforeFirstParenthesis(item.name)],
+              ...item.value,
+            ]
+          : item.value;
+      }
     });
 
     const receipt = await this.prisma.reservationReceipt.create({
@@ -71,6 +85,45 @@ export class ReservationService {
         optionsKO,
         totalPrice,
       },
+    });
+
+    const receiptV2Data = {
+      username: receipt.user['name'],
+      email: receipt.user['email'],
+      phoneNumber: receipt.user['phoneNumber'],
+      address: body['address'],
+      modelName: receipt.model['name'],
+      type: receipt.optionsKO['층수 형태']
+        ? String(receipt.optionsKO['층수 형태'])
+        : '',
+      exteriorMaterial: receipt.optionsKO['외장재 색상']
+        ? String(receipt.optionsKO['외장재 색상'])
+        : '',
+      deck: receipt.optionsKO['데크'] ? String(receipt.optionsKO['데크']) : '',
+      canopy: receipt.optionsKO['캐노피']
+        ? String(receipt.optionsKO['캐노피'])
+        : '',
+      exteriorLighting: receipt.optionsKO['외부 조명']
+        ? String(receipt.optionsKO['외부 조명'])
+        : '',
+      bathroom: receipt.optionsKO['화장실']
+        ? String(receipt.optionsKO['화장실'])
+        : '',
+      kitchenType: extractStringBeforeFirstParenthesis(kitchenFiltered?.nameKO), // !
+      selectiedFurniture: receipt.optionsKO['가구']
+        ? String(receipt.optionsKO['가구'])
+        : '',
+      selectedKitchenAppliances: receipt.optionsKO['주방 기기옵션']
+        ? String(receipt.optionsKO['주방 기기옵션'])
+        : '',
+      additionalOptions: receipt.optionsKO['기타옵션']
+        ? String(receipt.optionsKO['기타옵션'])
+        : '',
+      totalPrice: receipt.totalPrice,
+    };
+
+    await this.prisma.reservationReceiptV2.create({
+      data: receiptV2Data,
     });
 
     await this.emailService.sendReceiptEmail(receipt, model as any, language);
@@ -228,7 +281,7 @@ export class ReservationService {
       }
     });
 
-    return { model, user, result, resultOpposite };
+    return { model, user, result, resultOpposite, kitchenFiltered };
   }
 
   async getReservationReceipt(id: string) {

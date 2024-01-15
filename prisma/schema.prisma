@@ -290,7 +290,6 @@ model MainPagePortfolio {
 
 model ReservationReceiptV2 {
 	id              String @id @default(uuid())
-	receiptId		String?
 	username			String?
 	email			String?
 	phoneNumber			String?
